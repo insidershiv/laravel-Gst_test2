@@ -18,23 +18,18 @@
 
     function search() {
 
-        var result = [];
-        var result2 = [];
-        var name = [];
-        var email = [];
+
     var value = document.getElementById('search-value').value;
-        console.log("/admin/search/?filter[name]="+value + "&filter[email]="+value);
+
 
     $.ajax({
         type: "get",
-        url: "/admin/search/?filter[name]="+value,
+        url: "/admin/search/?filter[test]="+value,
 
 
         success: function (response) {
 
-
-
-
+        console.log(response);
 
 
 
@@ -48,23 +43,27 @@
 
 
 
-    $.ajax({
-        type: "get",
-        url: "/admin/search/?filter[email]="+value,
+    // $.ajax({
+    //     type: "get",
+    //     url: "/admin/search/?filter[email]="+value,
 
 
-        success: function (response) {
+    //     success: function (response) {
+
+    //         for(var i = 0 ; i<response.length; i++) {
+    //             result[i] = response[i];
+    //         }
 
 
-        },
-        error:function(error) {
-            console.log("df");
-        }
-    });
+    //     },
+    //     error:function(error) {
+    //         console.log("df");
+    //     }
+    // });
 
 
-    console.log(result);
-    console.log(result2);
+    // console.log(result);
+
     }
 
 

@@ -99,8 +99,20 @@ class AdminController extends Controller
 
     }
 
-    public function updateuser() {
+    public function updateuser(Request $request) {
+
+
+    //    $input =  $request->input;
+
+
+    //    $result = User::get("name","email");
+
+
+
+
+
         return view('admin.update-user');
+
     }
 
 }

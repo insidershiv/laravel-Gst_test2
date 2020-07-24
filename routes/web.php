@@ -2,7 +2,10 @@
 
 use App\User;
 use Illuminate\Support\Facades\Route;
-
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,11 +66,41 @@ Route::group(['middleware' => 'isadmin', 'middleware' => 'auth'], function () {
 
 });
 
-Route::get('/admin/search', function() {
+
+
+Route::get('/admin/search', function(Request $request) {
+
+
+    print_r($request->name);
+
 
     $users = QueryBuilder::for(User::class)
-    ->allowedFilters('name', 'email')
-    ->get();
-return $users;
-    // return view('admin.update-user', ['users' =>$users]);
+    ->allowedFilters([
+        AllowedFilter::callback('search',
+        function (Builder $query, $value) {
+
+            $query->where('name', 'like', '%' . $value . '%')
+                 ->orWhere('email', 'like', '%' . $value . '%');
+
+        }
+        ),
+
+        ])->get();
+
+
+    return $users;
+
 });
+
+
+// User::latest()
+//     ->where('name', 'like', '%' . $search . '%')
+//     ->orWhere('type', 'like', '%' . $search . '%')
+//     ->orWhereHas('warranty', function($q) use($search) {
+//         $q->where('first_name', 'like', '%' . $search . '%');
+//     })
+
+
+
+
+// Route::get('/admin/search', "Admin\AdminController@updateuser");
