@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+
+
+}
+
+
+
+
+.no-border {
+    border: 0;
+    box-shadow: none;
+
+
+
+
+}
+
+
+.no-border:focus {
+    outline: none;
+    border: 0;
+    box-shadow: none;
+}
+
+.font-dashboard {
+    font-size: 2rem;
+    color: white;
+}
+
+
+.table-heading {
+    background: #6D7ADF;
+    color: white;
+}
+
+.table-row {
+    background: #F8F7FF;
+    font-weight: 300;
+    font-size: 1.3rem;
+    font-family: 'Lato', sans-serif;
+}
+
+
+    @media only screen and (max-width: 75em) {
+      html {
+        font-size: 65%; }
+        th {
+            font-size: 65%;
+        }
+    }
+    @media only screen and (max-width: 56.25em) {
+      html {
+        font-size: 60%; }
+    th{
+        font-size: 55%;
+    }
+    }
+    @media only screen and (max-width: 37.5em) {
+      html {
+        font-size: 47%; }
+    th{
+        font-size: 45%;
+    }
+    }
+    @media only screen and (min-width: 112.5em) {
+      html {
+        font-size: 90%; }
+        th{
+            font-size: 85%;
+        }
+    }
