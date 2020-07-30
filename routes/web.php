@@ -25,9 +25,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -55,52 +55,38 @@ Route::group(['middleware' => 'isadmin', 'middleware' => 'auth'], function () {
     Route::get("/admin/view/active-users", "Admin\AdminController@activeusers");
 
 
-    Route::get("/admin/update-user", "Admin\AdminController@updateuser");
+    Route::view("/admin/update-user", 'admin.search-user');
 
 
 
     Route::post('/admin/update/status/{id}', "Admin\AdminController@updateuser_status");
 
+    Route::get('/admin/update/user/{id}', "Admin\AdminController@getuser");
+
+    Route::post("/admin/update", "Admin\AdminController@updateuser")->name('admin.update');
 
 
 
 });
-
-
-
-Route::get('/admin/search', function(Request $request) {
-
-
-    print_r($request->name);
-
-
-    $users = QueryBuilder::for(User::class)
-    ->allowedFilters([
-        AllowedFilter::callback('search',
-        function (Builder $query, $value) {
-
-            $query->where('name', 'like', '%' . $value . '%')
-                 ->orWhere('email', 'like', '%' . $value . '%');
-
-        }
-        ),
-
-        ])->get();
-
-
-    return $users;
-
-});
-
-
-// User::latest()
-//     ->where('name', 'like', '%' . $search . '%')
-//     ->orWhere('type', 'like', '%' . $search . '%')
-//     ->orWhereHas('warranty', function($q) use($search) {
-//         $q->where('first_name', 'like', '%' . $search . '%');
-//     })
 
 
 
 
 // Route::get('/admin/search', "Admin\AdminController@updateuser");
+
+
+Route::get('/admin/search', "Admin\AdminController@search_result");
+
+
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+  Route::get('/user/dashboard', 'Customer\CustomerController@dashboard');
+
+});
+
+
+Route::get('/forgot_password', 'ResetPasswordController@password_reset_url')->name('password.forgot');
+Route::post('/forgot_password_request', 'ResetPasswordController@password_reset_request');
+Route::get('/password_request/list', 'ResetPasswordController@getall');

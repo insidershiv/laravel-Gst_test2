@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
 
             }
             if(Auth::user()->is_admin == 0) {
-                return redirect('user');
+                return redirect('user\dashboard');
             }
          }
 

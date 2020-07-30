@@ -1,7 +1,10 @@
 <div class="container">
 
 
+
     <div class="row">
+
+
 
 
 
@@ -9,12 +12,12 @@
 
 
 
-        <input type="text" name="name" id="search-value" placeholder="Search here..." class="col-6 form-control" onkeyup="search(this)" required>
+        <input type="text" name="name" id="search-value" placeholder="Search user to update.." class=" form-control" onkeyup="search(this)" required>
 
-        <button class="btn btn-primary col-4 offset-1">Search</button>
+
+
 
     </div>
-
 
 
 

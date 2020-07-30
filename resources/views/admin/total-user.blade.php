@@ -53,7 +53,7 @@
     </td>
 
     <td>
-    <button class="btn btn-success ml-1 btn-sm col-md-8 col-sm-9 col-xs-9"  onclick="changestatus(this.id)" id="{{$item->id}}">Activate</button>
+    <button class="btn btn-success ml-1 btn-sm col-md-12 col-xs-9"  onclick="changestatus(this.id)" id="{{$item->id}}">Activate</button>
     </td>
 @else
     <td class="text-success">Active
@@ -61,7 +61,7 @@
     </td>
 
     <td>
-    <button class="btn btn-danger ml-1 btn-sm col-md-8" onclick="changestatus(this.id)" id="{{$item->id}}">Block</button>
+    <button class="btn btn-danger ml-1 btn-sm col-md-12" onclick="changestatus(this.id)" id="{{$item->id}}">Block</button>
     </td>
 
 @endif
@@ -90,13 +90,13 @@
     <td class="text-danger">Blocked
 
     </td>
-<td><button class="btn btn-success ml-1 btn-sm col-md-8 col-xs-9" onclick="changestatus(this.id)" id="{{$item->id}}">Activate</button></td>
+<td><button class="btn btn-success ml-1 btn-sm col-md-12 col-xs-9" onclick="changestatus(this.id)" id="{{$item->id}}">Activate</button></td>
 @else
     <td class="text-success">Active
 
     </td>
     <td>
-    <button class="btn btn-danger ml-1 btn-sm col-md-8 " onclick="changestatus(this.id)"  id="{{$item->id}}">Block</button>
+    <button class="btn btn-danger ml-1 btn-sm col-md-12 " onclick="changestatus(this.id)"  id="{{$item->id}}">Block</button>
     </td>
 @endif
 
@@ -143,7 +143,7 @@ $.ajax({
             },
     type:"POST",
     url: "/admin/update/status/"+id,
-    data: {},
+
 
     success: function (response) {
         location.reload();

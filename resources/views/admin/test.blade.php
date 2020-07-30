@@ -3,210 +3,74 @@
 @section('content')
 
 
-<div class="container-fluid  p-0 text-center">
-<form action="{{route('admin.register')}}" method="POST">
-    @csrf
+<form>
     <div class="form-row">
-
-        <div class="form-group input-group col-md-6">
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i> </span>
-              </div>
-
-              <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="UserName">
-
-        @error('name')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-
+      <div class="col-md-4 mb-3">
+        <label for="validationServer01">Name</label>
+        <input type="text" class="form-control is-valid" id="validationServer01"  required>
+        <div class="valid-feedback">
+          Looks good!
         </div>
-
-
-        <div class="form-group input-group col-md-6">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address">
-
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationServer02">Email</label>
+        <input type="email" class="form-control is-valid" id="validationServer02"  required>
+        <div class="valid-feedback">
+          Looks good!
         </div>
-
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationServerUsername">Username</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend3">@</span>
+          </div>
+          <input type="text" class="form-control is-invalid" id="validationServerUsername" aria-describedby="inputGroupPrepend3" required>
+          <div class="invalid-feedback">
+            Please choose a username.
+          </div>
+        </div>
+      </div>
     </div>
-
-    {{-- end of first Row form --}}
-
-
-
-    <div class="form-row mt-3">
-
-        <div class="form-group input-group col-md-5">
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"> <i class="fas fa-dove    "></i></span>
-              </div>
-
-              <input id="company_name" type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required autocomplete="company_name" placeholder="Name of Company">
-
-            @error('company_name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="validationServer03">City</label>
+        <input type="text" class="form-control is-invalid" id="validationServer03" required>
+        <div class="invalid-feedback">
+          Please provide a valid city.
         </div>
-
-
-
-
-        <div class="form-group input-group col-md-7">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" placeholder="Address Of Company">
-
-            @error('address')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationServer04">State</label>
+        <select class="custom-select is-invalid" id="validationServer04" required>
+          <option selected disabled value="">Choose...</option>
+          <option>...</option>
+        </select>
+        <div class="invalid-feedback">
+          Please select a valid state.
         </div>
-
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationServer05">Zip</label>
+        <input type="text" class="form-control is-invalid" id="validationServer05" required>
+        <div class="invalid-feedback">
+          Please provide a valid zip.
+        </div>
+      </div>
     </div>
-
-
-    <div class="form-row mt-3">
-        <div class="form-group input-group col-md-4">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" placeholder="Country">
-
-              @error('country')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-              @enderror
-
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+        <label class="form-check-label" for="invalidCheck3">
+          Agree to terms and conditions
+        </label>
+        <div class="invalid-feedback">
+          You must agree before submitting.
         </div>
-
-
-        <div class="form-group input-group col-md-4">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="state" type="text" class="form-control @error('state') is-invalid @enderror" name="state" value="{{ old('state') }}" required autocomplete="state" placeholder="State">
-
-            @error('state')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-
-
-        <div class="form-group input-group col-md-4">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city" placeholder="City">
-
-              @error('city')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-              @enderror
-
-        </div>
-
-
-
-
-
-
+      </div>
     </div>
-
-
-    <div class="form-row mt-3">
-
-        <div class="form-group input-group col-md-6">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
-
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-
-
-
-        <div class="form-group input-group col-md-6">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
-              </div>
-
-              <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
-
-        </div>
-
-
-    </div>
-
-
-    <div class="form-row mt-5">
-
-
-            <div class="col-md-6 offset-md-3">
-                <button type="submit" class="btn btn-success d-inline-block col-md-6">
-                    {{ __('Register') }}
-                </button>
-            </div>
-
-
-
-    </div>
-
-
-
-</form>
-
-
-
-</div>
-
+    <button class="btn btn-primary" type="submit">Submit form</button>
+  </form>
 
 
 @endsection

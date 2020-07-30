@@ -53,9 +53,25 @@
       </li>
     @endif
 
+
+
+    @if (Auth::user()->is_admin == 1)
+    <li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('/password_request/list')}}">
+          <i class="fas fa-user-plus"></i>
+          <span class="font-dashboard">Password Reset Requests</span>
+        </a>
+
+      </li>
+    @endif
+
+
+
+
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      <button class="no-border no-bg" id="sidebarToggle"></button>
     </div>
 
   </ul>

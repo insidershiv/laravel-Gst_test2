@@ -27,6 +27,12 @@ body {
     box-shadow: none;
 }
 
+.no-bg{
+    background:none;
+}
+
+
+
 .font-dashboard {
     font-size: 2rem;
     color: white;
@@ -48,29 +54,60 @@ body {
 
     @media only screen and (max-width: 75em) {
       html {
-        font-size: 65%; }
+        font-size: 75%; }
         th {
+            font-size: 65%;
+        }
+
+        td {
             font-size: 65%;
         }
     }
     @media only screen and (max-width: 56.25em) {
       html {
-        font-size: 60%; }
+        font-size: 70%; }
     th{
+        font-size: 55%;
+    }
+    td {
         font-size: 55%;
     }
     }
     @media only screen and (max-width: 37.5em) {
       html {
-        font-size: 47%; }
+        font-size: 70%; }
     th{
+        font-size: 45%;
+    }
+    td {
         font-size: 45%;
     }
     }
     @media only screen and (min-width: 112.5em) {
       html {
-        font-size: 90%; }
+        font-size: 100%; }
         th{
             font-size: 85%;
         }
+        td {
+            font-size: 85%;
+        }
     }
+
+    .text-color-white {
+        color:white;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+

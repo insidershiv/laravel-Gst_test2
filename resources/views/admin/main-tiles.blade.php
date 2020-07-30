@@ -95,9 +95,6 @@
 
           }
 
-          console.log(active);
-          console.log(blocked);
-          console.log(total);
 
          document.getElementById("blocked_users").innerText = blocked;
          document.getElementById("active_users").innerText = active;

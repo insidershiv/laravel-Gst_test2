@@ -10675,7 +10675,7 @@
   }
 
   .sidebar-dark #sidebarToggle {
-    background-color: rgba(255, 255, 255, 0.2);
+    /* background-color: rgba(255, 255, 255, 0.2); */
   }
 
   .sidebar-dark #sidebarToggle::after {
@@ -10683,7 +10683,7 @@
   }
 
   .sidebar-dark #sidebarToggle:hover {
-    background-color: rgba(255, 255, 255, 0.25);
+    /* background-color: rgba(255, 255, 255, 0.25); */
   }
 
   .sidebar-dark.toggled #sidebarToggle::after {
