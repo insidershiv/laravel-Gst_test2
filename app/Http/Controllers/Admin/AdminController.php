@@ -14,6 +14,8 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 
+use App\reset_request;
+
 class AdminController extends Controller
 {
     public function showRegisterForm()
@@ -31,7 +33,7 @@ class AdminController extends Controller
         $request['password_confirmation'] = Hash::make($request['password_confirmation']);
         $request['password'] = Hash::make($request['password']);
         User::create($request->all());
-        return redirect('/admin/dashboard')->with('status', 'User successfully registerd');
+        return redirect('/admin/dashboard')->with('creation_successfull', 'User successfully registerd');
     }
 
     public function validation($request)
@@ -119,7 +121,6 @@ class AdminController extends Controller
                 function (Builder $query, $value) {
                     $query->where('name', 'like', '%' . $value . '%')
                      ->orWhere('email', 'like', '%' . $value . '%');
-
                 }
             ),
 
@@ -132,32 +133,26 @@ class AdminController extends Controller
 
     public function updateuser(Request $request)
     {
-
-
         $data = $request->input();
 
         $id = $data["id"];
         unset($data[$id]);
 
-        if(array_key_exists("email", $data)) {
-
+        if (array_key_exists("email", $data)) {
             $this->validate_update_email($request);
-             User::find($id)->update($data);
+            User::find($id)->update($data);
             return json_encode($data);
-        }else {
-
+        } else {
             $this->validate_update($request);
             User::find($id)->update($data);
             return json_encode($data);
         }
-
     }
 
 
 
-    public function validate_update_email(Request $request) {
-
-
+    public function validate_update_email(Request $request)
+    {
         $validate =  $request->validate([
 
             'name' => 'required|string|max:50',
@@ -171,16 +166,13 @@ class AdminController extends Controller
         ]);
 
         return $validate;
-
-
-
     }
 
 
-    public function validate_update(Request $request) {
-
-
-        $validate =  $request->validate([
+    public function validate_update(Request $request)
+    {
+        $validate =  $request->validate(
+            [
 
             'name' => 'required|string|max:50',
 
@@ -191,12 +183,54 @@ class AdminController extends Controller
             'city' => 'required',
             'country'=> 'required'
         ],
-        [
+            [
             'mobile.min' => 'Contact Number Must be of 10 digits'
         ]
-    );
+        );
 
         return $validate;
+    }
+
+
+
+    public function getall()
+    {
+        $conditions = ['is_admin'=>0, 'reset_request'=>1];
+        $data =   User::where($conditions)->get();
+
+        return view('admin.password_reset_requests', ['data'=>$data]);
+    }
+
+
+
+    public function password_reset_form($id)
+    {
+        $data = User::find($id);
+
+        return view('admin.password_resetform', ['data'=>$data]);
+    }
+
+
+
+
+
+//
+    public function password_reset(Request $request){
+
+        $this->password_reset_validation($request);
+        $email = $request->email;
+        $condition = ['email'=>$email];
+
+        $request['password_confirmation'] = Hash::make($request['password_confirmation']);
+        $request['password'] = Hash::make($request['password']);
+
+        User::where($condition)->update(['password'=>$request['password']]);
+
+        User::where($condition)->update(['reset_request'=>0]);
+
+        return redirect('/admin/dashboard')->with('status', 'Password successfully Updated For User');
+
+
 
 
 
@@ -205,6 +239,14 @@ class AdminController extends Controller
 
 
 
+    public function password_reset_validation(Request $request)
+    {
+        $validate = $request->validate([
 
+            'password' =>'required|confirmed|string|min:8',
 
+        ]);
+
+        return $validate;
+    }
 }

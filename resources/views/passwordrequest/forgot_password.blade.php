@@ -119,7 +119,26 @@ function submit() {
                     document.location.href="login";
 
                 });
-            }else {
+            }
+
+            else if(data['msg'] == 'queued') {
+                swal("Request is being Processed", "You will be notified once request is complete", "success", {
+                button: "continue",
+              })
+                .then((value) => {
+                    if(value)
+                    document.location.href="login";
+
+                });
+            }
+
+
+
+
+
+
+
+            else {
 
                 swal("Email is Not registered", "Please Check your email and try again!", "warning", {
                 button: "continue",

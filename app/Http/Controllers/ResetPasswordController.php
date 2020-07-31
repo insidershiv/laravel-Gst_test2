@@ -31,14 +31,24 @@ class ResetPasswordController extends Controller
 
         $data = User::where($condition)->get();
 
+
         $length = count($data);
 
 
         if($length) {
 
-            reset_request::create($request->all());
+            if($data[0]["reset_request"] == 0){
 
-            $res = ["msg"=>'true'];
+                User::where('email', $email)->update(['reset_request'=> 1]);
+                $res = ["msg"=>'true'];
+            }
+
+            else {
+                $res = ["msg"=>'queued'];
+            }
+
+
+
 
 
             return json_encode($res);
@@ -52,8 +62,4 @@ class ResetPasswordController extends Controller
 
     }
 
-
-    public function getall() {
-       return reset_request::all();
-    }
 }

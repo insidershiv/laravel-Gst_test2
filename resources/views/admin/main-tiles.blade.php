@@ -67,6 +67,63 @@
 </div>
 
 
+
+@if(session()->has('status'))
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header justify-content-center">
+
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body text-center">
+
+				<p>Password Successfully Updated For the User</p>
+				<button class="btn btn-success" data-dismiss="modal">Continue</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+  @endif
+
+
+
+  @if(session()->has('creation_successfull'))
+
+
+  <div id="myModal2" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header justify-content-center">
+
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body text-center">
+
+				<p>User Successfully Created</p>
+				<button class="btn btn-success" data-dismiss="modal">Continue</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+  @endif
+
+
+
+
+
+
+
+
 <div>
 
 
@@ -74,6 +131,16 @@
 
 
    <script>
+
+    if($("#myModal")) {
+        $("#myModal"). modal('show');
+    }
+
+
+    if($("#myModal2")) {
+        $("#myModal2").modal('show');
+    }
+
 
        var data = {!! json_encode($data) !!};
 
@@ -105,7 +172,7 @@
         if (mq.matches) {
     // window width is at less than 570px
             document.getElementsByClassName('fa-3x').classList.add('text-danger');
-            console.log("here");
+
         }
         else {
     // window width is greater than 570px
@@ -146,6 +213,8 @@ element3.classList.add('fa-2x');
 }
 
 }
+
+
 
 
 

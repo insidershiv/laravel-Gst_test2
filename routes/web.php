@@ -25,9 +25,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
@@ -64,6 +64,10 @@ Route::group(['middleware' => 'isadmin', 'middleware' => 'auth'], function () {
     Route::get('/admin/update/user/{id}', "Admin\AdminController@getuser");
 
     Route::post("/admin/update", "Admin\AdminController@updateuser")->name('admin.update');
+    Route::get('/password_request/list', 'Admin\AdminController@getall');
+    Route::get('/admin/password_resetform/{id}', 'Admin\AdminController@password_reset_form');
+    Route::post('/admin/password_reset', "Admin\AdminController@password_reset");
+
 
 
 
@@ -89,4 +93,3 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/forgot_password', 'ResetPasswordController@password_reset_url')->name('password.forgot');
 Route::post('/forgot_password_request', 'ResetPasswordController@password_reset_request');
-Route::get('/password_request/list', 'ResetPasswordController@getall');
