@@ -111,3 +111,39 @@ input[type=number] {
 }
 
 
+.font-lato {
+    font-family: 'Lato', sans-serif;
+}
+
+.nav-dropdown-bg {
+    background: #03a678;
+
+}
+
+::-webkit-input-placeholder { /* Edge */
+   font-size: 1rem;
+   color: red;
+   opacity: 0.5;
+
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   font-size: 1rem;
+   color: red;
+   opacity: .5;
+  }
+
+  ::placeholder {
+   font-size: 1rem;
+   color: red;
+   opacity: 0.5;
+  }
+
+.bg-color-teal {
+    background: #03a678;
+}
+
+.full-height {
+    height: 100vh;
+
+}

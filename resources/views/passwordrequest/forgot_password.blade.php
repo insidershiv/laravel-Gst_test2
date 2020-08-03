@@ -122,7 +122,11 @@ function submit() {
             }
 
             else if(data['msg'] == 'queued') {
-                swal("Request is being Processed", "You will be notified once request is complete", "success", {
+                swal({
+                title:"Please Wait...",
+                text:"Your Request is under Process \n     You will be notified once request is complete",
+                html:true,
+                icon:'info',
                 button: "continue",
               })
                 .then((value) => {

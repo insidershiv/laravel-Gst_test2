@@ -31,14 +31,25 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+
+        if($user->is_active == 0) {
+            return redirect('/blocked_user');
+        }
+
+
         if($user->is_admin == 1) {
+
 
             return redirect('admin\dashboard');
         }
         if($user->is_admin == 0) {
+
+
             return redirect('user\dashboard');
         }
     }
+
+
 
     /**
      * Create a new controller instance.
