@@ -4,11 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
-        // $request->session_destroy();
+        //  $request->session_destroy();
         return view('user.main-dashboard');
     }
 
@@ -79,15 +79,24 @@ class UserController extends Controller
         return $validate;
     }
 
-    public function logout_other_devices(Request $request)
-    {
-        $password = $request->password;
 
-        Auth::logoutOtherDevices($password);
-    }
 
-    public function logout() {
-        Auth::logout();
-        return redirect('login');
-    }
+
+    // public function logout_other_devices(Request $request)
+    // {
+    //     $password = $request->password;
+
+    //     Auth::logoutOtherDevices($password);
+    // }
+
+    // public function logout() {
+    //     session_unset();
+    //     Auth::logout();
+    //     //return redirect('login');
+    // }
+
+
+
+
+
  }

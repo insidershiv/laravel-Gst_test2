@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -32,9 +33,12 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
 
-        if($user->is_active == 0) {
-            return redirect('/blocked_user');
-        }
+
+         //Auth::logoutOtherDevices($request->password); // will prevent multiple login
+
+        // if($user->is_active == 0) {
+        //     return redirect('/blocked_user');
+        // }
 
 
         if($user->is_admin == 1) {
@@ -49,6 +53,14 @@ class LoginController extends Controller
         }
     }
 
+    // public function logoutAllDevices(Request $request)
+    // {
+    //     \DB::table('sessions')
+    //         ->where('user_id', \Auth::user()->id)
+    //         ->where('id', '!=', \Session::getId())->delete();
+
+    //     return redirect('/logged-in-devices');
+    // }
 
 
     /**
