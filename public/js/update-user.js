@@ -39,6 +39,7 @@ function update(event) {
 
         },
         error: function (xhr) {
+
             response = (xhr.responseText);
             response = JSON.parse(response);
             errors = (response.errors);

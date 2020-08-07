@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
-use Closure;
 
-class IsAdmin
+use Closure;
+use Illuminate\Support\Facades\Auth;
+
+class IsUserMiddleware
 {
+
     /**
      * Handle an incoming request.
      *
@@ -16,21 +18,21 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
 
+        if (Auth::user() && Auth::check()) {
+            if (Auth::user()->is_admin == 1) {
 
-        //   $user = Auth::user();
-        //  print_r ($user['name']);
+                // return $next($request);
 
-        if(Auth::user()) {
-            if ( Auth::user()->is_admin == 1) {
-                return $next($request);
+                return redirect('/admin/dashboard');
+
             }
+             return $next($request);
+
 
         }
 
 
 
-        abort(403);
 
-        //  return $next($request);
     }
 }

@@ -54,9 +54,6 @@ class UserController extends Controller
 
     public function update_password(Request $request)
     {
-
-
-
         $this->password_match($request);
         $email = $request->email;
         $password = bcrypt($request->password);
@@ -82,12 +79,12 @@ class UserController extends Controller
 
 
 
-    // public function logout_other_devices(Request $request)
-    // {
-    //     $password = $request->password;
+    public function logout_other_devices(Request $request)
+    {
+        $password = $request->password;
 
-    //     Auth::logoutOtherDevices($password);
-    // }
+        //Auth::logoutOtherDevices($password);
+    }
 
     // public function logout() {
     //     session_unset();
@@ -96,7 +93,63 @@ class UserController extends Controller
     // }
 
 
+    public function get_user($id)
+    {
+        $user = User::where('id', $id)->get();
+        return view('user.profile', ['user'=>$user]);
+    }
+
+
+    public function profile_update(Request $request)
+    {
+        $data = ($request->input());
+
+        $id = $data["id"];
+        unset($data[$id]);
+
+        $this->validate_update($request);
+
+        User::find($id)->update($data);
 
 
 
- }
+    }
+
+
+
+    public function validate_update(Request $request)
+    {
+
+        $messages = [
+            'number.min'=>'Contact Number must be 10 digits'
+        ];
+
+
+
+
+        $validate =  $request->validate(
+            [
+
+            'name' => 'required|string|max:50',
+            'state'=> 'required|string|max:100',
+
+            'company_name' =>'required',
+            'mobile' => 'required|digits:10',
+            'address' => 'required',
+            'city' => 'required',
+            'country'=> 'required',
+
+        ],
+
+        );
+
+        return $validate;
+    }
+
+
+public function new_customer_form() {
+    return view ('user.new-customer');
+}
+
+
+}

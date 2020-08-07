@@ -3,7 +3,7 @@
     <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
 
-    <div class="sidebar-brand-text mx-3"><h4>{{Auth::user()->name}}</h4></div>
+    <div class="sidebar-brand-text mx-3"><h6>{{Auth::user()->name}}</h6></div>
     </a>
 
     <!-- Divider -->
@@ -17,12 +17,11 @@
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading display-4">
+    {{-- <div class="sidebar-heading display-4">
      Features
-    </div>
+    </div> --}}
 
     <!-- Nav Item - Pages Collapse Menu -->
 
@@ -60,6 +59,20 @@
     <a class="nav-link collapsed" href="{{url('/password_request/list')}}">
           <i class="fas fa-user-plus"></i>
           <span class="font-dashboard">Password Reset Requests</span>
+        </a>
+
+      </li>
+    @endif
+
+
+
+
+
+    @if (Auth::user()->is_admin == 0)
+    <li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('/password_request/list')}}">
+          <i class="fas fa-user-plus"></i>
+          <span class="font-dashboard">New Customer</span>
         </a>
 
       </li>

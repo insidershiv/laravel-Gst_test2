@@ -27,8 +27,8 @@ body {
     box-shadow: none;
 }
 
-.no-bg{
-    background:none;
+.no-bg {
+    background: none;
 }
 
 
@@ -52,62 +52,76 @@ body {
 }
 
 
-    @media only screen and (max-width: 75em) {
-      html {
-        font-size: 75%; }
-        th {
-            font-size: 65%;
-        }
-
-        td {
-            font-size: 65%;
-        }
+@media only screen and (max-width: 75em) {
+    html {
+        font-size: 75%;
     }
-    @media only screen and (max-width: 56.25em) {
-      html {
-        font-size: 70%; }
-    th{
+
+    th {
+        font-size: 65%;
+    }
+
+    td {
+        font-size: 65%;
+    }
+}
+
+@media only screen and (max-width: 56.25em) {
+    html {
+        font-size: 70%;
+    }
+
+    th {
         font-size: 55%;
     }
+
     td {
         font-size: 55%;
     }
+}
+
+@media only screen and (max-width: 37.5em) {
+    html {
+        font-size: 70%;
     }
-    @media only screen and (max-width: 37.5em) {
-      html {
-        font-size: 70%; }
-    th{
+
+    th {
         font-size: 45%;
     }
+
     td {
         font-size: 45%;
     }
-    }
-    @media only screen and (min-width: 112.5em) {
-      html {
-        font-size: 100%; }
-        th{
-            font-size: 85%;
-        }
-        td {
-            font-size: 85%;
-        }
+}
+
+@media only screen and (min-width: 112.5em) {
+    html {
+        font-size: 100%;
     }
 
-    .text-color-white {
-        color:white;
+    th {
+        font-size: 85%;
     }
 
-    /* Chrome, Safari, Edge, Opera */
+    td {
+        font-size: 85%;
+    }
+}
+
+.text-color-white {
+    color: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 
@@ -120,24 +134,26 @@ input[type=number] {
 
 }
 
-::-webkit-input-placeholder { /* Edge */
-   font-size: 1rem;
-   color: red;
-   opacity: 0.5;
+::-webkit-input-placeholder {
+    /* Edge */
+    font-size: 1rem;
+    color: red;
+    opacity: 0.5;
 
-  }
+}
 
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-   font-size: 1rem;
-   color: red;
-   opacity: .5;
-  }
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 1rem;
+    color: red;
+    opacity: .5;
+}
 
-  ::placeholder {
-   font-size: 1rem;
-   color: red;
-   opacity: 0.5;
-  }
+::placeholder {
+    font-size: 1rem;
+    color: red;
+    opacity: 0.5;
+}
 
 .bg-color-teal {
     background: #03a678;
@@ -146,4 +162,92 @@ input[type=number] {
 .full-height {
     height: 100vh;
 
+}
+
+
+.large-font {
+    font-size: 1.1rem;
+}
+.test + .tooltip > .tooltip-inner {
+    background-color: #73AD21;
+    color: #FFFFFF;
+    border: 1px solid green;
+    padding: 15px;
+    font-size: 20px;
+}
+.tooltip-inner {
+    background: tomato;
+}
+
+.hidden {
+    display: none;
+  }
+
+  form > .row {
+    margin-bottom: 20px;
+  }
+
+  form > .row:last-child {
+    margin-bottom: 0;
+  }
+
+  form input.invalid {
+    border-color: #dc3545;
+  }
+
+  form .invalid-feedback {
+    color: #dc3545;
+    font-size: 14px;
+    line-height: 21px;
+    margin-top: 4px;
+    text-align: left;
+  }
+
+
+  .bg-none {
+      background: none;
+  }
+
+
+
+
+.login-input-update {
+
+    border-bottom: 2px solid teal;
+
+}
+
+.login-input-update:focus {
+    box-shadow: 0 0px 0px rgba(81, 203, 238, 1);
+    /* padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px; */
+    border-bottom: 2px solid rgba(81, 203, 238, 1);
+    background: none;
+}
+
+
+
+.border-left-orange {
+    border-left: 5px solid  #ff5733 ;
+}
+
+.border-left-voilet {
+    border-left: 5px solid  #900C3F ;
+}
+
+.border-left-blue {
+    border-left: 5px solid  #3498db ;
+}
+
+
+.text-blue {
+    color: #3498db;
+}
+
+.text-voilet {
+color: #900C3F;
+}
+
+.text-orange {
+    color: #ff5733;
 }

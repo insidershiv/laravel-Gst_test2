@@ -15,7 +15,7 @@
 
 
         <div class="dropdown-menu dropdown-menu-right nav-dropdown-bg" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item font-lato text-color-white" href="#">Profile</a>
+        <a class="dropdown-item font-lato text-color-white" href="{{url('/user/profile',[Auth::user()->id])}}">Profile</a>
         <a class="dropdown-item font-lato text-color-white" href="{{url('/user/change_password')}}">Change Password</a>
           <a class="dropdown-item font-lato text-color-white" href="{{ route('logout') }}"
                    onclick="event.preventDefault();

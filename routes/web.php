@@ -36,7 +36,7 @@ Route::get('/', 'HomeController@index')->name('login');
 
 
 // Route::view('/admin/dashboard', 'admin.dashboard');
-Route::group(['middleware' => 'isadmin', 'middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth', 'middleware' => 'isadmin'], function () {
     Route::get('/admin/dashboard', "Admin\AdminController@getusers");
     //Route::get('/admin/newuser', 'Admin\CustomerController@showCustomerRegister');
 
@@ -84,13 +84,16 @@ Route::get('/admin/search', "Admin\AdminController@search_result");
 
 
 
-Route::group(['middleware' => 'auth', 'middleware'=>'isactive'], function () {
+Route::group(['middleware' => 'auth', 'middleware'=>'isactive', 'middleware'=>'isuser'], function () {
 
   Route::get('/user/dashboard', 'User\UserController@dashboard');
   Route::get('/user/change_password', 'User\UserController@show_form');
   Route::post('/user/old_password_check', 'User\UserController@old_password_check');
   Route::post('/user/update_password', 'User\UserController@update_password');
   //Route::post('/user/logout_all', 'User\UserController@logout_other_devices');
+  Route::get('/user/profile/{id}', 'User\UserController@get_user');
+  Route::post('/user/profile/update/{id}', 'User\UserController@profile_update');
+  Route::get('/user/new_customer', 'User\UserController@new_customer_form');
 
 
 });
@@ -98,5 +101,5 @@ Route::group(['middleware' => 'auth', 'middleware'=>'isactive'], function () {
 
 Route::get('/forgot_password', 'ResetPasswordController@password_reset_url')->name('password.forgot');
 Route::post('/forgot_password_request', 'ResetPasswordController@password_reset_request');
- Route::view('/blocked_user', 'blocked.contact_admin');
+Route::view('/blocked_user', 'blocked.contact_admin');
 // Route::post('/user/logout', 'User\UserController@logout');

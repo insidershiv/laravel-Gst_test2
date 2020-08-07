@@ -202,18 +202,8 @@ for (k = 0; k < remove_span.length; k++) {
 swal("You Need to Re-login Again")
 .then((value) => {
 
-    $.ajax({
-        type: "POST",
-        url: "/user/logout_all",
-        data: {"password":password},
-        dataType: "dataType",
-        success: function (response) {
-            console.log("success");
-        },
-        error:function (xhr) {
-            console.log(xhr.responseText);
-        }
-    });
+
+location.href = "/login";
 
 
 
