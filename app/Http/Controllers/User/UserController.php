@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Customer;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserController extends Controller
 {
@@ -150,6 +155,82 @@ class UserController extends Controller
 public function new_customer_form() {
     return view ('user.new-customer');
 }
+
+
+public function create_customer(Request $request) {
+
+    $vendor_id = Auth::user()->id;
+   $request["vendor_id"] = $vendor_id;
+    $this->validate_customer($request);
+    Customer::create($request->all());
+    return redirect('/user/dashboard')->with('creation_successfull', 'Customer Added Successfully');
+
+
+
+
+
+
+
+}
+
+
+public function validate_customer($request) {
+
+
+
+    $validate =  $request->validate(
+        [
+
+        'name' => 'required|string|max:50',
+        'state'=> 'required|string|max:100',
+        'pincode' => 'required|numeric|digits:6',
+        'company_name' =>'required',
+        'mobile' => 'required|digits:10',
+        'address' => 'required',
+        'city' => 'required',
+        'country'=> 'required',
+
+    ],
+    [
+        'mobile.required'=>'Contact Number is Required',
+        'mobile.digits' =>'Contact number must be of 10 digits'
+    ]
+
+    );
+
+
+
+}
+
+
+public function view_customers_list() {
+$customers = Customer::orderBy('name')->get();
+return view('user.customer-list', ['data'=>$customers]);
+}
+
+
+
+public function search_customer() {
+    $customers = QueryBuilder::for(Customer::class)
+    ->allowedFilters([
+        AllowedFilter::callback(
+            'search',
+            function (Builder $query, $value) {
+                $query->where('name', 'like', '%' . $value . '%')
+                 ->orWhere('email', 'like', '%' . $value . '%');
+            }
+        ),
+
+        ])->get();
+
+
+    return $customers;
+}
+
+
+
+
+
 
 
 }

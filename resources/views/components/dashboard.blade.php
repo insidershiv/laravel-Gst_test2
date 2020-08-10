@@ -70,7 +70,7 @@
 
     @if (Auth::user()->is_admin == 0)
     <li class="nav-item">
-    <a class="nav-link collapsed" href="{{url('/password_request/list')}}">
+    <a class="nav-link collapsed" href="{{url('/user/new_customer')}}">
           <i class="fas fa-user-plus"></i>
           <span class="font-dashboard">New Customer</span>
         </a>

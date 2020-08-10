@@ -35,7 +35,6 @@ Route::get('/', 'HomeController@index')->name('login');
 
 
 
-// Route::view('/admin/dashboard', 'admin.dashboard');
 Route::group(['middleware' => 'auth', 'middleware' => 'isadmin'], function () {
     Route::get('/admin/dashboard', "Admin\AdminController@getusers");
     //Route::get('/admin/newuser', 'Admin\CustomerController@showCustomerRegister');
@@ -94,6 +93,10 @@ Route::group(['middleware' => 'auth', 'middleware'=>'isactive', 'middleware'=>'i
   Route::get('/user/profile/{id}', 'User\UserController@get_user');
   Route::post('/user/profile/update/{id}', 'User\UserController@profile_update');
   Route::get('/user/new_customer', 'User\UserController@new_customer_form');
+  Route::post('/user/save_new_customer', 'User\UserController@create_customer')->name('user.newcustomer');
+  Route::get('/user/view/customers', 'User\UserController@view_customers_list');
+  Route::get('/user/customer/search', 'User\UserController@search_customer');
+//   Route::get('/user/customer/bills', );
 
 
 });

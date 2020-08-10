@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="col-12 text-center">
-    <h4 class="text-warning">Create New User</h4>
+    <h4 class="text-warning">Add new Customer</h4>
 </div>
 
 
 
-<div class="container-fluid  p-0 text-center mt-5">
-<form action="{{route('admin.register')}}" method="POST">
+<div class="container-fluid  p-0 text-center mt-5 card p-3">
+<form action="{{route('user.newcustomer')}}" method="POST">
     @csrf
     <div class="form-row">
 
@@ -19,11 +19,11 @@
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user text-info"></i> </span>
               </div>
 
-              <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="UserName">
+              <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Customer Name">
 
         @error('name')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
+                <strong> <small> {{ $message }}</small></strong>
             </span>
         @enderror
 
@@ -41,7 +41,7 @@
 
             @error('email')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong> <small> {{ $message }}</small></strong>
                 </span>
             @enderror
 
@@ -65,7 +65,7 @@
 
             @error('company_name')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong> <small> {{ $message }}</small></strong>
                 </span>
             @enderror
 
@@ -85,7 +85,7 @@
 
             @error('address')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong> <small> {{ $message }}</small></strong>
                 </span>
             @enderror
         </div>
@@ -94,7 +94,7 @@
 
 
     <div class="form-row mt-3">
-        <div class="form-group input-group col-md-3">
+        <div class="form-group input-group col-md-2">
 
 
             <div class="input-group-prepend">
@@ -105,14 +105,14 @@
 
               @error('country')
                   <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
+                      <strong> <small> {{ $message }}</small></strong>
                   </span>
               @enderror
 
         </div>
 
 
-        <div class="form-group input-group col-md-3">
+        <div class="form-group input-group col-md-2">
 
 
             <div class="input-group-prepend">
@@ -123,14 +123,14 @@
 
             @error('state')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong> <small> {{ $message }}</small></strong>
                 </span>
             @enderror
 
         </div>
 
 
-        <div class="form-group input-group col-md-3">
+        <div class="form-group input-group col-md-2">
 
 
             <div class="input-group-prepend">
@@ -141,7 +141,7 @@
 
               @error('city')
                   <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
+                      <strong> <small> {{ $message }}</small></strong>
                   </span>
               @enderror
 
@@ -149,7 +149,26 @@
 
 
 
-        <div class="form-group input-group col-md-3">
+        <div class="form-group input-group col-md-2">
+
+
+            <div class="input-group-prepend">
+                <span class="input-group-text text-info" id="basic-addon1">Pin</span>
+              </div>
+
+              <input id="pincode" type="number" class="form-control @error('pincode') is-invalid @enderror" name="pincode" value="{{ old('pincode') }}" required autocomplete="pincode" placeholder="pincode">
+
+              @error('pincode')
+                  <span class="invalid-feedback" role="alert">
+                      <strong> <small> {{ $message }}</small></strong>
+                  </span>
+              @enderror
+
+        </div>
+
+
+
+        <div class="form-group input-group col-md-4">
 
 
             <div class="input-group-prepend">
@@ -160,7 +179,7 @@
 
             @error('mobile')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong> <small> {{ $message }}</small></strong>
                 </span>
             @enderror
 
@@ -173,41 +192,6 @@
 
     </div>
 
-
-    <div class="form-row mt-3">
-
-        <div class="form-group input-group col-md-6">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key text-info"></i></span>
-              </div>
-
-              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
-
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-
-
-
-        <div class="form-group input-group col-md-6">
-
-
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key text-info"></i></span>
-              </div>
-
-              <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
-
-        </div>
-
-
-    </div>
 
 
     <div class="form-row mt-5">
@@ -215,7 +199,7 @@
 
             <div class="col-md-6 offset-md-3">
                 <button type="submit" class="btn btn-success d-inline-block col-md-6">
-                    {{ __('Register') }}
+                    {{ __('Add Customer') }}
                 </button>
             </div>
 
@@ -231,4 +215,6 @@
 
 </div>
 
+
+<script src="{{asset("js/main.js")}}"></script>
 @endsection

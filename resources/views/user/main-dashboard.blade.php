@@ -16,7 +16,7 @@
           </div>
           <div class=" col-2 text-xscol-sm-3 text-primary font-weight-bold text-uppercase">: 250</div>
           <div class="col-2">
-            <a href="{{url('/admin/view/users')}}" class="text-primary">View List</a>
+            <a href="{{url('/user/view/customers')}}" class="text-primary">View List</a>
           </div>
           <div class="col-4 ml-auto">
             <button class="btn btn-danger btn-sm" onclick="location.href='/user/new_customer'">Add new customer <i class="fa fa-plus"></i></button>
@@ -172,6 +172,44 @@
 
 
 </div>
+
+
+
+
+
+@if(session()->has('creation_successfull'))
+
+
+<div id="myModal2" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+          <div class="modal-header justify-content-center">
+
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body text-center">
+
+              <p> Customer Added Successfully</p>
+              <button class="btn btn-success" data-dismiss="modal">Continue</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+@endif
+
+<script>
+ if($("#myModal2")) {
+        $("#myModal2").modal('show');
+    }
+</script>
 
 
 
