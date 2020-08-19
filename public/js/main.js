@@ -34,7 +34,7 @@ function WidthChange(mq) {
     } else {
         for (i = 0; i < element.length; i++) {
             ele = element[i];
-            ele.style.maxHeight = "36px";
+            ele.style.maxHeight = "37px";
         }
 
     }

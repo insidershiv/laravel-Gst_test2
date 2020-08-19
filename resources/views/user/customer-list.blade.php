@@ -7,10 +7,11 @@
 
 
 
-<x-searchcustomer />
+<x-searchcustomer>
 
+    Search Customer...
 
-
+</x-searchcustomer>
 
 
 
@@ -20,13 +21,59 @@
 </div>
 
 
+<div class="container d-flex align-items-center justify-content-center mt-5">
+
+
+
+<div class="table-responsive card" id="first-table">
+    <table class="table mb-0">
+       <thead style="background:#3F51B5;">
+          <tr>
+             <th class="text-warning">
+                <p class="text-color-white"> # </p>
+             </th>
+             <th class="th-lg">
+                <p><i class="fa fa-user pr-1 text-color-white " aria-hidden="true"></i></p>
+             </th>
+             <th class="th-lg">
+                <p class="text-color-white">  Email </p>
+             </th>
+             <th class="th-lg">
+                <p class="text-color-white"> Company Name </p>
+             </th>
+             <th class="th-lg">
+                <p class="text-color-white"> Address </p>
+             </th>
+             <th class="th-lg"></th>
+             <th class="th-lg"></th>
+          </tr>
+       </thead>
+       <tbody>
+
+        @foreach ($data as $customer)
+
+
+          <tr>
+             <td>{{ $loop->iteration }}</td>
+          <td>{{$customer->name}}</td>
+          <td>{{$customer->email}}</td>
+             <td>{{$customer->company_name}}</td>
+          <td class="text-success">{{$customer->address}}</td>
+          <td><button class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9" onclick="getall_bills(this.id)" id="{{$customer->id}}">Get Last Bill</button></td>
+          <td><button class="btn btn-info ml-1 btn-sm col-md-12  col-xs-9" onclick="location.href = '/user/customer/bills/{{$customer->id}}'" id="{{$customer->id}}">Get All Bills</button></td>
+          </tr>
+
+
+          @endforeach
+       </tbody>
+    </table>
+ </div>
 
 
 
 
 
-
-
+</div>
 
 
 
@@ -39,8 +86,10 @@
 
 
 
+
     function search() {
 
+     document.getElementById('first-table').style.display= "none";
 
 
     var value = document.getElementById('search-value').value;
@@ -56,8 +105,23 @@
 
             data = response;
 
+         if(data.length == 0){
+
+
+
+            element = "<h5 class='text-danger strong'>  No Result Found. Please Change Your Search Query. </h5>  ";
+
+
+
+            document.getElementById('show-table').innerHTML = element;
+
+         }else {
 
             showresult(data);
+
+         }
+
+
 
 
 
@@ -73,6 +137,8 @@
 
 
 function showresult(data) {
+
+
 
 
 

@@ -189,6 +189,7 @@ public function validate_customer($request) {
         'address' => 'required',
         'city' => 'required',
         'country'=> 'required',
+        'email'=>'required|unique:customers,email'
 
     ],
     [
@@ -198,7 +199,7 @@ public function validate_customer($request) {
 
     );
 
-
+return $validate;
 
 }
 
@@ -228,6 +229,90 @@ public function search_customer() {
 }
 
 
+
+public function updatecustomer_data($id) {
+
+    $customers = Customer::where('id', $id)->get();
+    $customer = $customers[0];
+    return view('user.customer-update-info', ['customer'=>$customer]);
+
+
+}
+
+
+public function update_customer(Request $request) {
+
+$data =  $request->input();
+
+
+
+$id= $data["id"];
+
+if(array_key_exists('update_check', $data)){
+
+    unset($data[$id]);
+    unset($data["update_check"]);
+
+    unset($data["_token"]);
+    $this->validate_customer($request);
+
+
+
+}
+
+else {
+    unset($data[$id]);
+    unset($data["email"]);
+    unset($data["_token"]);
+
+    $this->update_customer_validation($request);
+
+
+}
+
+
+Customer::where('id', $id)->update($data);
+
+return redirect('user/dashboard');
+
+
+
+
+
+}
+
+
+
+public function update_customer_validation($request) {
+
+    $validate =  $request->validate(
+        [
+
+        'name' => 'required|string|max:50',
+        'state'=> 'required|string|max:100',
+        'pincode' => 'required|numeric|digits:6',
+        'company_name' =>'required',
+        'mobile' => 'required|digits:10',
+        'address' => 'required',
+        'city' => 'required',
+        'country'=> 'required',
+
+
+    ],
+    [
+        'mobile.required'=>'Contact Number is Required',
+        'mobile.digits' =>'Contact number must be of 10 digits'
+    ]
+
+    );
+
+return $validate;
+
+}
+
+public function additem_form() {
+    return view('user.additem-form');
+}
 
 
 

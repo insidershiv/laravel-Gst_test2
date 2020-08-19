@@ -96,7 +96,14 @@ Route::group(['middleware' => 'auth', 'middleware'=>'isactive', 'middleware'=>'i
   Route::post('/user/save_new_customer', 'User\UserController@create_customer')->name('user.newcustomer');
   Route::get('/user/view/customers', 'User\UserController@view_customers_list');
   Route::get('/user/customer/search', 'User\UserController@search_customer');
-//   Route::get('/user/customer/bills', );
+//   Route::get('/user/customer/bills', );//get all bills
+
+  Route::view('/user/update_customer', 'user.update-customer');
+  Route::get('/user/update_customer/info/{id}', 'User\UserController@updatecustomer_data');
+  Route::post('/update/customer', 'User\UserController@update_customer')->name('updatecustomer');
+  Route::view('/user/inventory','user.inventory');
+  Route::get('user/additem', 'User\UserController@additem_form');
+
 
 
 });
