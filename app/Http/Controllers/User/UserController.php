@@ -311,6 +311,7 @@ return $validate;
 }
 
 public function additem_form() {
+    
     return view('user.additem-form');
 }
 
