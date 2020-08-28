@@ -71,16 +71,17 @@ inco = ' <div class="table-responsive card">'
    + '</tr>'
   + '</thead>' ;
 
-  for(i = 0 ; i< data.length; i++) {
+  for(i = 0 ,j = 0; i< data.length; i++) {
         item = data[i];
 
         if(item["is_admin"] == 1){
+            j = 0;
             continue;
         }else {
 
 
    temp =   '<tr>'
-    + '<td>' + (i+1) + '</td>'
+    + '<td>' + (j+1) + '</td>'
     + '<td>' + item["name"] + '</td>'
     + '<td>' + item["email"] + '</td>'
     + '<td>' + item["company_name"] + '</td>'

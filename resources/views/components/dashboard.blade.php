@@ -55,6 +55,17 @@
     @endif
 
 
+    @if (Auth::user()->is_admin == 1)
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('/admin/search/user') }}">
+                <i class="fas fa-search"></i>
+                <span class="font-dashboard">Search User</span>
+            </a>
+
+        </li>
+    @endif
+
+
 
     @if (Auth::user()->is_admin == 1)
         <li class="nav-item">

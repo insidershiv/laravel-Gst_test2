@@ -315,6 +315,18 @@ public function additem_form() {
     return view('user.additem-form');
 }
 
+public function view_customer($id) {
+
+    $vendor_id = Auth::user()->id;
+    $conditons = ["id"=>$id, "vendor_id"=>$vendor_id];
+
+
+   $customer =  Customer::where($conditons)->get();
+   $customer = $customer[0];
+
+   return view('user.customer-details', ['customer'=>$customer]);
+}
+
 
 
 

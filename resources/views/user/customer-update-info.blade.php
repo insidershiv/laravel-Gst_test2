@@ -2,8 +2,11 @@
 
 @section('content')
 
-    <h4 class="text-warning">Update Customer</h4>
-
+<div class="container d-flex justify-content-center align-items-center">
+    <div>
+        <p class="h5 text-danger">Update Customer</p>
+    </div>
+</div>
 
 
 <div class="container-fluid  p-0 text-center mt-5 card p-3">

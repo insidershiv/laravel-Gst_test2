@@ -120,7 +120,8 @@ class AdminController extends Controller
                 'search',
                 function (Builder $query, $value) {
                     $query->where('name', 'like', '%' . $value . '%')
-                     ->orWhere('email', 'like', '%' . $value . '%');
+                     ->orWhere('email', 'like', '%' . $value . '%')
+                     ->where('is_admin', 0);
                 }
             ),
 
@@ -248,5 +249,9 @@ class AdminController extends Controller
         ]);
 
         return $validate;
+    }
+
+    public function search_user() {
+        return view('admin.search-user');
     }
 }
