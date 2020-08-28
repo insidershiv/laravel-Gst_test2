@@ -1,11 +1,20 @@
 @extends('layouts.dashboard')
 
-@section('title', 'add item')
 
+@section('title', 'Update | Product')
 
 
 
 @section('content')
+
+
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center">
+            <h5 class="text-info">Update Inventory Item</h5>
+
+        </div>
+    </div>
+
 
 
     <div class=" card p-3">
@@ -17,9 +26,9 @@
 
                 <div class="col-md-3 mt-2">
 
-
-                    <input type="text" placeholder="Name of Item" class="form-control" name="item_name" id="item_name"
-                        required>
+                    <label for="item_name" class="h6">ITEM NAME</label>
+                    <input type="text" placeholder="Name of Item" class="form-control text-capitalize" name="item_name"
+                        id="item_name" required value="{{ $product->item_name }}">
                     @error('item_name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -27,8 +36,9 @@
                     @enderror
                 </div>
                 <div class="col-md-2 col-6 mt-2">
-                    <input type="number" name="item_price" id="item_price" placeholder="Unit Price" class="form-control text-capitalize"
-                        required>
+                    <label for="item_price" class="h6">ITEM PRICE</label>
+                    <input type="number" name="item_price" id="item_price" placeholder="Unit Price" class="form-control"
+                        required value="{{ $product->item_price }}">
                     @error('item_price')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -37,10 +47,11 @@
                 </div>
 
                 <div class=" col-md-1 col-2 mt-2" id="drop-menu">
+                    <label for="item_type" class="h6">Type</label>
                     <div class="dropdown" id="menu1">
                         <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Type
+                            {{ $product->item_type }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2" id="item_type">
                             <button class="dropdown-item" type="button">Product</button>
@@ -50,13 +61,45 @@
                     </div>
                 </div>
 
+
+                @if ($product->item_type == 'Product')
+                    <div class='col-md-2 ml-3 col-sm-2 col-6 mt-2' id='stock_div'> <label for='item_stock'
+                            class="h6">Stock</label> <input type='number' name='item_stock' id='item_stock'
+                            placeholder='Stock' required class='form-control' value='{{ $product->item_stock }}'>
+                        @error('item_stock')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                @endif
+
+
+
                 <script>
-                    selected_item_type = -1;
+                    selected_item_type = $('#dropdownMenu2').text();
+                    console.log($('#dropdownMenu2').html());
+
+                </script>
+
+
+                <script>
                     $('#item_type button').on('click', function() {
 
                         selected_item_type = ($(this).text());
                         element =
-                            "<div class='col-md-2 col-sm-2 col-6 mt-2' id='stock_div'> <input type='number' name ='item_stock' id='item_stock' placeholder='Stock' required class='form-control'></div>"
+                            "<div class='col-md-2 col-sm-2 col-6 mt-2' id='stock_div'> <label for='item_stock' class='h6'>Stock</label> <input type='number' name ='item_stock' id='item_stock' placeholder='Stock' required class='form-control' value='{{ $product->item_stock }}'>"
+                              
+                           +     "@error('item_stock')"
+                           + '<span class="invalid-feedback" role="alert">'
+                           +  '<strong>{{ $message }}</strong>'
+                           + '</span>'
+                           + '@enderror'
+                              
+                              
+                              
+                                +  "</div>" ;
                         $('#dropdownMenu2').text(selected_item_type);
                         if (selected_item_type == 'Product') {
                             $('#stock_div').remove();
@@ -68,20 +111,39 @@
 
                 </script>
 
+
+
+
+
                 <div class="col-md-2 mt-2 col-4">
-                    <input type="text" class="form-control" placeholder="HSN/SAC" name="item_hsn_sac" id="item_hsn_sac">
-                    @error('item_hsn_sac')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                    <label for="hsn_sac" class="h6">HSN/SAC</label>
+                    <input type="text" class="form-control" placeholder="HSN/SAC" name="item_hsn_sac" id="item_hsn_sac"
+                        value="{{ $product->item_hsn_sac }}">
+                        @error('item_hsn_sac')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                 </div>
 
-                <div class=" col-md-1 col-2 mt-2" id="tax-drop-menu">
+                <div class=" col-md-1 col-4 mt-2" id="tax-drop-menu">
+                    <label for="item_tax_slab" class="h6">TAX</label>
                     <div class="dropdown" id="menu1">
                         <button class="btn btn-warning dropdown-toggle" type="button" id="tax-menu" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            Tax Slab
+
+                            @if ($product->item_tax_slab == 0)
+                                Exempt
+                            @else
+
+                                {{ $product->item_tax_slab }}
+
+                            @endif
+
+
+
+
+
                         </button>
                         <div class="dropdown-menu" aria-labelledby="tax-menu" id="item_tax_slab">
                             <button class="dropdown-item" type="button">5%</button>
@@ -100,21 +162,33 @@
             </div>
 
 
-            {{--
-            <div class="d-flex justify-content-left align-items-center" id="add_more">
-                <button class="btn btn-primary btn-sm" id="add_more" onclick="addmore_row(event)">Add More <i
-                        class="fa fa-plus"></i></button>
-            </div> --}}
+            @if ($product->item_exemption == 1)
+
+                <div class='row d-flex justify-content-center' id='reason-div'>
+                    <div class='col-md-6 col-sm-2 col-10 mt-2 text-capitalize'>
+                        <label for="exempt_reason" class="h6">Reason For Exemption</label>
+                        <input type='text' name='exempt_reason' id='exempt_reason' placeholder='Specicy Reason of Exemption'
+                            required class='form-control' value='{{ $product->item_exemption_reason }}'>
+                    </div>
+                </div>
+            @endif
 
 
-            <div class="d-flex justify-content-center align-items-center mt-3" id="submit_button">
+            <script>
+                item_tax = $('#tax-menu').text();
+
+            </script>
+
+
+            <div class="d-flex justify-content-center align-items-center mt-5" id="submit_button">
 
                 {{-- <button class="btn btn-success col-md-2" onclick="submit_item(event)">
                     Add
                 </button> --}}
 
 
-                <input type="submit" class="btn btn-success" value="Add" name="submit">
+                <input type="submit" class="btn btn-success col-md-2" value="Update" name="submit"
+                    id="{{ $product->item_id }}">
             </div>
 
 
@@ -127,14 +201,15 @@
 
 
 
-    <input type="text" name="" id="" value="{{ Auth::user()->id }}" hidden>
+    <input type="text" name="" id="product_id" value="{{ $product->id }}" hidden>
+
+
 
     <script>
-        item_tax = -1;
         $('#item_tax_slab button').on('click', function() {
             item_tax = ($(this).text());
             element =
-                "<div class='row d-flex justify-content-center' id='reason-div'> <div class='col-md-6 col-sm-2 col-10 mt-2 '> <input type='text' name ='exempt_reason' id='exempt_reason' placeholder='Specicy Reason of Exemption' required class='form-control'></div></div>"
+                "<div class='row d-flex justify-content-center' id='reason-div'> <div class='col-md-6 col-sm-2 col-10 mt-2 text-capitalize'> <input type='text' name ='exempt_reason' id='exempt_reason' placeholder='Specicy Reason of Exemption' required class='form-control' value='{{ $product->item_exemption_reason }}'></div></div>"
             $('#tax-menu').text(item_tax);
             if (item_tax == 'Exempt') {
                 $('#reason-div').remove();
@@ -158,9 +233,14 @@
             //selected_item_type is the type of item product or service
             //item_tax is tax slab for the item
             //  var data = {};
-            console.log(selected_item_type);
-            console.log(item_tax);
-            console.log(item_tax);
+
+            id = $('#product_id').val();
+
+
+            selected_item_type = selected_item_type.trim();
+
+            item_tax = item_tax.trim();
+
             if (item_tax == -1) {
 
                 swal({
@@ -181,7 +261,6 @@
             }
 
             if (item_tax != -1 && item_tax != 'Exempt') {
-               // temp = item_tax.slice(0, -1);
                 temp = item_tax.replace('%','');
                 item_tax = temp;
             }
@@ -200,8 +279,6 @@
                     'item_exemption_reason': exempt_reason,
                     'item_type': selected_item_type
                 };
-
-
 
             }
 
@@ -238,7 +315,7 @@
 
 
             if (selected_item_type == 'Service' && item_tax != 'Exempt') {
-                console.log(item_tax_slab);
+                console.log("here");
                 var data = {
                     'item_name': item_name,
                     'item_price': item_price,
@@ -250,63 +327,31 @@
 
             }
 
-            // if(item_tax == 1) {
-
-            //    val = $('#tax-menu').text();console.log(val);
-            //    val = val.trim();
-            //    if(val != 'Tax Slab'){
-            //        item_tax = val;
-            //        data['item_tax_slab'] = item_tax;
-            //    }
-
-            // }
 
 
 
+
+            console.log(data);
 
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: "/user/createinventory",
+                url: "/user/update_item/" + id,
                 data: data,
 
                 success: function(response) {
-                    console.log(data);
-                    swal("Successfully Addedd !", "", "success", {
-                                button: "continue",
-                            })
-                            .then((value) => {
-                                if (value)
-                                document.location.href="/user/additem";
-                                
-
-                            });
-                    
+                    console.log(response);
                 },
                 error: function(xhr) {
-
-                    console.log(data);
+                    
                     response = (xhr.responseText);
-                    response = JSON.parse(response);console.log(xhr.responseText);
-                 
+                    response = JSON.parse(response);
                     errors = (response.errors);
-                    if (errors == undefined) {
-                        swal("Duplicate Entry !", "HSN/SAC already exists !!!", "error", {
-                                button: "continue",
-                            })
-                            .then((value) => {
-                                if (value)
-                                document.location.href="/user/additem";
-                                
-
-                            });
-
-                    }
-
+                   
                     keys = Object.keys(errors);
-
+                   
 
 
                     // console.log(errors.mobile);
@@ -321,7 +366,7 @@
 
                         arr[keys[l]] = temp1;
                     }
-
+                  
 
 
 
@@ -348,9 +393,10 @@
                         //console.log(obj);
                         obj.classList.add('is-invalid');
                         obj.insertAdjacentHTML('afterend', ` <span class="invalid-feedback" role="alert">
-                    <small>${arr[val]}</small>
-                </span>`);
+            <small>${arr[val]}</small>
+        </span>`);
                     }
+                }
                 }
             });
 
@@ -359,5 +405,6 @@
         })
 
     </script>
+
 
 @endsection

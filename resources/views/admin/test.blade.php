@@ -1,76 +1,44 @@
-@extends('layouts.dashboard')
-
-@section('content')
-
-
-<form>
-    <div class="form-row">
-      <div class="col-md-4 mb-3">
-        <label for="validationServer01">Name</label>
-        <input type="text" class="form-control is-valid" id="validationServer01"  required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationServer02">Email</label>
-        <input type="email" class="form-control is-valid" id="validationServer02"  required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationServerUsername">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupPrepend3">@</span>
-          </div>
-          <input type="text" class="form-control is-invalid" id="validationServerUsername" aria-describedby="inputGroupPrepend3" required>
-          <div class="invalid-feedback">
-            Please choose a username.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationServer03">City</label>
-        <input type="text" class="form-control is-invalid" id="validationServer03" required>
-        <div class="invalid-feedback">
-          Please provide a valid city.
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationServer04">State</label>
-        <select class="custom-select is-invalid" id="validationServer04" required>
-          <option selected disabled value="">Choose...</option>
-          <option>...</option>
-        </select>
-        <div class="invalid-feedback">
-          Please select a valid state.
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationServer05">Zip</label>
-        <input type="text" class="form-control is-invalid" id="validationServer05" required>
-        <div class="invalid-feedback">
-          Please provide a valid zip.
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-        <label class="form-check-label" for="invalidCheck3">
-          Agree to terms and conditions
-        </label>
-        <div class="invalid-feedback">
-          You must agree before submitting.
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
-  </form>
-
-
-@endsection
+<div class="table-responsive card mt-5">
+    <!--Table-->
+    <table class="table mb-0">
+        <!--Table head-->
+        <thead>
+            <tr>
+                <th class="text-warning">#</th>
+                <th class="th-lg">Item Name</th>
+                <th class="th-lg">Price</th>
+                <th class="th-lg">HSN/SAC</th>
+                <th class="th-lg">Tax Slab</th>
+                <th class="th-lg">Exemption Reason</th>
+                <th class="th-lg"></th>
+                <th class="th-lg"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-row">
+                <th>1</th>
+                <td class="text-capitalize">Web development</td>
+                <td class="text-capitalize">5000</td>
+                <td class="text-capitalize">987456</td>
+                <td class="text-capitalize">18%</td>
+                <td class="text-capitalize">N/A</td>
+                <td class="text-capitalize"> <button class="btn btn-info" id="2"
+                        onclick="location.href='/user/item/updateform/1">Update</button></td>
+        </tbody>
+        <td class="text-capitalize"> <button class="btn btn-danger" onclick="delete_product(this)"
+                id="1">Delete</button></td>
+        <tbody>
+            <tr class="table-row">
+                <th>2</th>
+                <td class="text-capitalize">delivery</td>
+                <td class="text-capitalize">1254</td>
+                <td class="text-capitalize">855229</td>
+                <td class="text-capitalize">0%</td>
+                <td class="text-capitalize text-wrap">no work</td>
+                <td class="text-capitalize"> <button class="btn btn-info" id="2"
+                        onclick="location.href='/user/item/updateform/4">Update</button></td>
+        </tbody>
+        <td class="text-capitalize"> <button class="btn btn-danger" onclick="delete_product(this)"
+                id="4">Delete</button></td>
+    </table>
+</div>

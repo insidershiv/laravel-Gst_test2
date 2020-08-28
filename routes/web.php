@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventoryController;
 use App\User;
 use Illuminate\Support\Facades\Route;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -79,7 +80,7 @@ Route::group(['middleware' => 'auth', 'middleware' => 'isadmin'], function () {
 
 
 Route::get('/admin/search', "Admin\AdminController@search_result");
-
+Route::view('/test', 'admin.test');
 
 
 
@@ -98,14 +99,25 @@ Route::group(['middleware' => 'auth', 'middleware'=>'isactive', 'middleware'=>'i
   Route::get('/user/customer/search', 'User\UserController@search_customer');
 //   Route::get('/user/customer/bills', );//get all bills
 
+Route::get('/user/inventory/product/search', 'InventoryController@search_product');
+Route::get('/user/inventory/service/search', 'InventoryController@search_service');
+
+
   Route::view('/user/update_customer', 'user.update-customer');
   Route::get('/user/update_customer/info/{id}', 'User\UserController@updatecustomer_data');
   Route::post('/update/customer', 'User\UserController@update_customer')->name('updatecustomer');
   Route::view('/user/inventory','user.inventory');
   Route::get('user/additem', 'User\UserController@additem_form');
-
-
-
+  Route::post('/user/createinventory', 'InventoryController@create_inventory');
+  Route::get('/user/view/inventory', 'InventoryController@view_inventory');
+  Route::get('/user/view/products', 'InventoryController@view_products');
+  Route::get('/user/view/services', 'InventoryController@view_services');
+  Route::post('/user/delete/product/{id}', 'InventoryController@delete_product');
+  Route::post('/user/update/product/{id}', 'InventoryController@update_product');
+  Route::get('/user/item/updateform/{id}', 'InventoryController@update_form');
+  Route::post('/user/update_item/{id}', 'InventoryController@update_item');
+  Route::post('/user/delete/service/{id}', 'InventoryController@delete_service');
+  
 });
 
 

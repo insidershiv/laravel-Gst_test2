@@ -11,7 +11,7 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col-3 mr-2">
-            <div class="text-primary text-center text-uppercase mb-1">Inventory</div>
+            <div class="text-primary text-center text-uppercase mb-1">Inventory Items</div>
 
           </div>
           <div class=" col-2 text-xscol-sm-3 text-primary font-weight-bold text-uppercase">: 250</div>

@@ -93,6 +93,18 @@
     @endif
 
 
+
+@if (Auth::user()->is_admin == 0)
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{ url('/user/view/customers') }}">
+        <i class="fas fa-search"></i>
+        <span class="font-dashboard">Search Customer</span>
+    </a>
+
+</li>
+@endif
+
+
     @if (Auth::user()->is_admin == 0)
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ url('/user/inventory') }}">
@@ -102,6 +114,20 @@
 
     </li>
 @endif
+
+
+@if (Auth::user()->is_admin == 0)
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{ url('/user/additem') }}">
+        <i class="fas fa-user-plus"></i>
+        <span class="font-dashboard">Add To Inventory</span>
+    </a>
+
+</li>
+@endif
+
+
+
 
 
 

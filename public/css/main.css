@@ -4,22 +4,12 @@ body {
     height: 100%;
     font-size: 16px;
     font-family: 'Oswald', sans-serif;
-
-
 }
-
-
-
 
 .no-border {
     border: 0;
     box-shadow: none;
-
-
-
-
 }
-
 
 .no-border:focus {
     outline: none;
@@ -31,13 +21,10 @@ body {
     background: none;
 }
 
-
-
 .font-dashboard {
     font-size: 2rem;
     color: white;
 }
-
 
 .table-heading {
     background: #6D7ADF;
@@ -51,16 +38,13 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-
 @media only screen and (max-width: 75em) {
     html {
         font-size: 75%;
     }
-
     th {
         font-size: 65%;
     }
-
     td {
         font-size: 65%;
     }
@@ -70,11 +54,9 @@ body {
     html {
         font-size: 70%;
     }
-
     th {
         font-size: 55%;
     }
-
     td {
         font-size: 55%;
     }
@@ -84,11 +66,9 @@ body {
     html {
         font-size: 70%;
     }
-
     th {
         font-size: 45%;
     }
-
     td {
         font-size: 45%;
     }
@@ -98,11 +78,9 @@ body {
     html {
         font-size: 100%;
     }
-
     th {
         font-size: 85%;
     }
-
     td {
         font-size: 85%;
     }
@@ -112,18 +90,21 @@ body {
     color: white;
 }
 
+
 /* Chrome, Safari, Edge, Opera */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
+
 /* Firefox */
+
 input[type=number] {
     -moz-appearance: textfield;
 }
-
 
 .font-lato {
     font-family: 'Lato', sans-serif;
@@ -131,7 +112,6 @@ input[type=number] {
 
 .nav-dropdown-bg {
     background: #03a678;
-
 }
 
 ::-webkit-input-placeholder {
@@ -139,7 +119,6 @@ input[type=number] {
     font-size: 1rem;
     color: red;
     opacity: 0.5;
-
 }
 
 :-ms-input-placeholder {
@@ -161,60 +140,54 @@ input[type=number] {
 
 .full-height {
     height: 100vh;
-
 }
-
 
 .large-font {
     font-size: 1.1rem;
 }
-.test + .tooltip > .tooltip-inner {
+
+.test+.tooltip>.tooltip-inner {
     background-color: #73AD21;
     color: #FFFFFF;
     border: 1px solid green;
     padding: 15px;
     font-size: 20px;
 }
+
 .tooltip-inner {
     background: tomato;
 }
 
 .hidden {
     display: none;
-  }
+}
 
-  form > .row {
+form>.row {
     margin-bottom: 20px;
-  }
+}
 
-  form > .row:last-child {
+form>.row:last-child {
     margin-bottom: 0;
-  }
+}
 
-  form input.invalid {
+form input.invalid {
     border-color: #dc3545;
-  }
+}
 
-  form .invalid-feedback {
+form .invalid-feedback {
     color: #dc3545;
     font-size: 14px;
     line-height: 21px;
     margin-top: 4px;
     text-align: left;
-  }
+}
 
-
-  .bg-none {
-      background: none;
-  }
-
-
-
+.bg-none {
+    background: none;
+}
 
 .login-input-update {
-
     border-bottom: 2px solid teal;
-
 }
 
 .login-input-update:focus {
@@ -225,29 +198,31 @@ input[type=number] {
     background: none;
 }
 
-
-
 .border-left-orange {
-    border-left: 5px solid  #ff5733 ;
+    border-left: 5px solid #ff5733;
 }
 
 .border-left-voilet {
-    border-left: 5px solid  #900C3F ;
+    border-left: 5px solid #900C3F;
 }
 
 .border-left-blue {
-    border-left: 5px solid  #3498db ;
+    border-left: 5px solid #3498db;
 }
-
 
 .text-blue {
     color: #3498db;
 }
 
 .text-voilet {
-color: #900C3F;
+    color: #900C3F;
 }
 
 .text-orange {
     color: #ff5733;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    overflow-y: hidden;
 }

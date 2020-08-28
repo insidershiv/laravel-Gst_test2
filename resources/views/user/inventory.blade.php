@@ -51,7 +51,7 @@
                             <p class="text-success">55</p>
                         </div>
                         <div class=" col-sm-4 col-md-3 col">
-                          <button class="btn btn-danger btn-sm btn-block">view inventory</button>
+                          <button class="btn btn-danger btn-sm btn-block" onclick="location.href='/user/view/inventory'">view inventory</button>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="col-sm-4 col-md-3 col">
-                          <button class="btn btn-danger btn-sm btn-block">View Products</button>
+                          <button class="btn btn-danger btn-sm btn-block" onclick="location.href='/user/view/products'">View Products</button>
                         </div>
 
 
@@ -91,7 +91,7 @@
                       </div>
 
                       <div class="col-sm-4 col-md-3 col">
-                        <button class="btn btn-danger btn-sm btn-block">view Services</button>
+                        <button class="btn btn-danger btn-sm btn-block" onclick="location.href='/user/view/services'">view Services</button>
                       </div>
 
 
