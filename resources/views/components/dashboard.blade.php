@@ -96,7 +96,7 @@
     @if (Auth::user()->is_admin == 0)
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url('/user/update_customer') }}">
-                <i class="fas fa-user-plus"></i>
+                <i class="fas fa-user-edit"></i>
                 <span class="font-dashboard">Update Customer</span>
             </a>
 
@@ -119,7 +119,7 @@
     @if (Auth::user()->is_admin == 0)
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ url('/user/inventory') }}">
-            <i class="fas fa-user-plus"></i>
+            <i class="fas fa-warehouse"></i>
             <span class="font-dashboard">Inventory</span>
         </a>
 
@@ -130,7 +130,7 @@
 @if (Auth::user()->is_admin == 0)
 <li class="nav-item">
     <a class="nav-link collapsed" href="{{ url('/user/additem') }}">
-        <i class="fas fa-user-plus"></i>
+        <i class="fas fa-plus-square"></i>
         <span class="font-dashboard">Add To Inventory</span>
     </a>
 

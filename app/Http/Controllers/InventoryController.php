@@ -191,27 +191,27 @@ class InventoryController extends Controller
     public function view_inventory() {
         $item_id  = Auth::user()->id;
         $conditions = ['item_id'=>$item_id];
-       $items =  Inventory::where($conditions)->get();
+       $items =  Inventory::where($conditions)->get()->sortBy('item_name');
 
-        return view('user.inventory-list', ['items'=>$items]);
+        return view('user.inventory.inventory-list', ['items'=>$items]);
     }
 
 
     public function view_products() {
         $item_id  = Auth::user()->id;
         $conditions = ['item_type'=>'Product', 'item_id'=>$item_id];
-       $products =  Inventory::where($conditions)->get();
+       $products =  Inventory::where($conditions)->get()->sortBy('item_name');
 
-        return view('user.inventory-productlist', ['products'=>$products]);
+        return view('user.inventory.inventory-productlist', ['products'=>$products]);
     }
 
 
     public function view_services() {
         $item_id  = Auth::user()->id;
         $conditions = ['item_type'=>'Service', 'item_id'=>$item_id];
-       $services =  Inventory::where($conditions)->get();
+       $services =  Inventory::where($conditions)->get()->sortBy('item_name');
 
-        return view('user.inventory-servicelist', ['services'=>$services]);
+        return view('user.inventory.inventory-servicelist', ['services'=>$services]);
     }
 
 
@@ -282,7 +282,7 @@ class InventoryController extends Controller
         
         $products =  Inventory::where($conditions)->get();
         $product = $products[0];
-        return view('user.inventory_updateform', ['product'=>$product]);
+        return view('user.inventory.inventory_updateform', ['product'=>$product]);
 
     }
     
@@ -310,7 +310,7 @@ class InventoryController extends Controller
 
     public function search_service() {
         
-        $products = QueryBuilder::for(Inventory::class)
+        $services = QueryBuilder::for(Inventory::class)
         ->allowedFilters([
             AllowedFilter::callback(
                 'search',
@@ -325,8 +325,55 @@ class InventoryController extends Controller
             ])->get();
 
 
-        return $products;
+            
+
+        return $services;
     }
+
+
+    public function search_inventory() {
+        $items = QueryBuilder::for(Inventory::class)
+        ->allowedFilters([
+            AllowedFilter::callback(
+                'search',
+                function (Builder $query, $value) {$id = Auth::user()->id;
+                    $query->where('item_name', 'like', '%' . $value . '%')
+                    ->where('item_id', $id);
+                    
+                    
+                }
+            ),
+
+            ])->get();
+
+
+        return $items;
+    }
+
+
+
+public function additem_form() {
+    
+    return view('user.inventory.additem-form');
+}
+
+
+public function inventory() {
+
+    $item_id = Auth::user()->id;
+
+    $inventory = Inventory::where('item_id', $item_id)->get();
+    $inventory_count = count($inventory);
+
+    $product = Inventory::where(['item_type'=>'Product', 'item_id'=>$item_id])->get();
+    $product_count = count($product);
+    $service = Inventory::where(['item_type'=>'Service', 'item_id'=>$item_id])->get();
+    $service_count  = count($service);
+
+    return view('user.inventory.inventory', ['inventory_count'=>$inventory_count, 'product_count'=>$product_count, 'service_count'=>$service_count]);
+
+
+}
 
 
 

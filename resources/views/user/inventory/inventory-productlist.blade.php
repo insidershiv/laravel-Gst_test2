@@ -8,7 +8,9 @@
 
 
 
-    <x-searchinventory />
+    <x-searchinventory>
+        Search Products...
+    </x-searchinventory>
 
 
     <div class="container" id="show-table">
@@ -115,14 +117,15 @@
                 url: "/user/delete/product/" + id,
                 success: function(response) {
 
-                    swal({
-                        title: "Deletion Successfull",
+                    swal("Successfully Deleted !", "", "success", {
+                                button: "continue",
+                            })
+                            .then((value) => {
+                                if (value)
+                                //document.location.href="/user/additem";
+                                location.reload();
 
-                        icon: "success",
-                        button: "Ok",
-                    });
-
-                    location.reload();
+                            });
                 }
             });
 

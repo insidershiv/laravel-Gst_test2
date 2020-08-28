@@ -9,7 +9,9 @@
 
 
 
-    <x-searchinventory />
+    <x-searchinventory>
+    Search Services....
+    </x-searchinventory>
 
     <div class="container" id="show-table">
 
@@ -20,10 +22,10 @@
 
     <div class="container text-center mt-5">
        
-       <div>  <h5 class="text-danger">No Products</h5></div> 
-       <div><h5 class="text-success mt-2">Please Start Adding Products to Inventory....</h5>
+       <div>  <h5 class="text-danger">No Services</h5></div> 
+       <div><h5 class="text-success mt-2">Please Start Adding Service to Inventory....</h5>
         
-        <button class="btn btn-success col-6 mt-5" onclick="location.href='/user/additem'"> Add Product To Inventory <i class="fa fa-plus"></i> </button>
+        <button class="btn btn-success col-6 mt-5" onclick="location.href='/user/additem'"> Add Service To Inventory <i class="fa fa-plus"></i> </button>
     
     </div>
 
@@ -32,7 +34,7 @@
         
     @else
 
-    <div class="container" id="default-table">
+    <div class="container mt-5" id="default-table">
 
 
         <div class="table-responsive card">
@@ -113,14 +115,15 @@
                 url: "/user/delete/service/" + id,
                 success: function(response) {
 
-                    swal({
-                        title: "Deletion Successfull",
+                    swal("Successfully Deleted !", "", "success", {
+                                button: "continue",
+                            })
+                            .then((value) => {
+                                if (value)
+                                //document.location.href="/user/additem";
+                                location.reload();
 
-                        icon: "success",
-                        button: "Ok",
-                    });
-
-                    location.reload();
+                            });
                 }
             });
 
@@ -136,6 +139,8 @@
 
             if (value.length == 0) {
                 $('#default-table').show();
+                $('#show-table').hide();
+                return;
             }
 
 

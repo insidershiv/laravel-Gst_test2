@@ -80,6 +80,9 @@ Route::view('/test', 'admin.test');
 
 
 
+// USER Auth Starts Here
+
+
 Route::group(['middleware' => 'auth', 'middleware' => 'isactive', 'middleware' => 'isuser'], function () {
 
   Route::get('/user/dashboard', 'User\UserController@dashboard');
@@ -99,13 +102,14 @@ Route::group(['middleware' => 'auth', 'middleware' => 'isactive', 'middleware' =
 
   Route::get('/user/inventory/product/search', 'InventoryController@search_product');
   Route::get('/user/inventory/service/search', 'InventoryController@search_service');
+  Route::get('/user/inventory/search', 'InventoryController@search_inventory');
 
 
-  Route::view('/user/update_customer', 'user.update-customer');
+  Route::view('/user/update_customer', 'user.customer.update-customer');
   Route::get('/user/update_customer/info/{id}', 'User\UserController@updatecustomer_data');
   Route::post('/update/customer', 'User\UserController@update_customer')->name('updatecustomer');
-  Route::view('/user/inventory', 'user.inventory');
-  Route::get('user/additem', 'User\UserController@additem_form');
+  Route::get('/user/inventory', 'InventoryController@inventory');
+  Route::get('user/additem', 'InventoryController@additem_form');
   Route::post('/user/createinventory', 'InventoryController@create_inventory');
   Route::get('/user/view/inventory', 'InventoryController@view_inventory');
   Route::get('/user/view/products', 'InventoryController@view_products');

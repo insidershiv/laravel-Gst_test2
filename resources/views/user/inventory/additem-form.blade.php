@@ -18,7 +18,7 @@
                 <div class="col-md-3 mt-2">
 
 
-                    <input type="text" placeholder="Name of Item" class="form-control" name="item_name" id="item_name"
+                    <input type="text" placeholder="Name of Item" class="form-control text-capitalize" name="item_name" id="item_name"
                         required>
                     @error('item_name')
                     <span class="invalid-feedback" role="alert">

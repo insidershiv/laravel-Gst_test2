@@ -25,7 +25,7 @@
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user text-info"></i> </span>
                   </div>
     
-                  <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $customer->name }}" readonly required autocomplete="name" autofocus placeholder="Customer Name">
+                  <input id="name" type="text" class="form-control text-capitalize @error('name') is-invalid @enderror" name="name" value="{{ $customer->name }}" readonly required autocomplete="name" autofocus placeholder="Customer Name">
     
            
     
@@ -58,7 +58,7 @@
                     <span class="input-group-text text-info" id="basic-addon1">Company</span>
                   </div>
     
-                  <input id="company_name" type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ $customer->company_name }}" readonly required autocomplete="company_name" placeholder="Name of Company">
+                  <input id="company_name" type="text" class="form-control text-capitalize @error('company_name') is-invalid @enderror" name="company_name" value="{{ $customer->company_name }}" readonly required autocomplete="company_name" placeholder="Name of Company">
     
               
     
@@ -74,7 +74,7 @@
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked text-info"></i></span>
                   </div>
     
-                  <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $customer->address }}" readonly required autocomplete="address" placeholder="Address Of Company">
+                  <input id="address" type="text" class="form-control text-capitalize @error('address') is-invalid @enderror" name="address" value="{{ $customer->address }}" readonly required autocomplete="address" placeholder="Address Of Company">
     
             
             </div>
@@ -90,7 +90,7 @@
                     <span class="input-group-text text-info" id="basic-addon1">Country</span>
                   </div>
     
-                  <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ $customer->country }}" readonly required autocomplete="country" placeholder="Country">
+                  <input id="country" type="text" class="form-control text-capitalize @error('country') is-invalid @enderror" name="country" value="{{ $customer->country }}" readonly required autocomplete="country" placeholder="Country">
     
                
     
@@ -104,7 +104,7 @@
                     <span class="input-group-text text-info" id="basic-addon1">State</span>
                   </div>
     
-                  <input id="state" type="text" class="form-control @error('state') is-invalid @enderror" name="state" value="{{ $customer->state }}" readonly required autocomplete="state" placeholder="State">
+                  <input id="state" type="text" class="form-control text-capitalize @error('state') is-invalid @enderror" name="state" value="{{ $customer->state }}" readonly required autocomplete="state" placeholder="State">
     
                
     
@@ -118,7 +118,7 @@
                     <span class="input-group-text text-info" id="basic-addon1">City</span>
                   </div>
     
-                  <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ $customer->city }}" readonly required autocomplete="city" placeholder="City">
+                  <input id="city" type="text" class="form-control text-capitalize @error('city') is-invalid @enderror" name="city" value="{{ $customer->city }}" readonly required autocomplete="city" placeholder="City">
     
                 
     

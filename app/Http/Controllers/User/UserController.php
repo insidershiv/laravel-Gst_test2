@@ -153,7 +153,7 @@ class UserController extends Controller
 
 
 public function new_customer_form() {
-    return view ('user.new-customer');
+    return view ('user.customer.new-customer');
 }
 
 
@@ -206,7 +206,7 @@ return $validate;
 
 public function view_customers_list() {
 $customers = Customer::orderBy('name')->get();
-return view('user.customer-list', ['data'=>$customers]);
+return view('user.customer.customer-list', ['data'=>$customers]);
 }
 
 
@@ -234,7 +234,7 @@ public function updatecustomer_data($id) {
 
     $customers = Customer::where('id', $id)->get();
     $customer = $customers[0];
-    return view('user.customer-update-info', ['customer'=>$customer]);
+    return view('user.customer.customer-update-info', ['customer'=>$customer]);
 
 
 }
@@ -310,10 +310,6 @@ return $validate;
 
 }
 
-public function additem_form() {
-    
-    return view('user.additem-form');
-}
 
 public function view_customer($id) {
 
@@ -324,7 +320,7 @@ public function view_customer($id) {
    $customer =  Customer::where($conditons)->get();
    $customer = $customer[0];
 
-   return view('user.customer-details', ['customer'=>$customer]);
+   return view('user.customer.customer-details', ['customer'=>$customer]);
 }
 
 

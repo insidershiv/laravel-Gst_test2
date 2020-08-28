@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="col-sm-4 col-md-3 col">
-                            <p class="text-success">55</p>
+                            <p class="text-success">{{$inventory_count}}</p>
                         </div>
                         <div class=" col-sm-4 col-md-3 col">
                           <button class="btn btn-danger btn-sm btn-block" onclick="location.href='/user/view/inventory'">view inventory</button>
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="col-sm-4 col-md-3 col">
-                          <p class="text-success">25</p>
+                          <p class="text-success">{{$product_count}}</p>
                         </div>
 
                         <div class="col-sm-4 col-md-3 col">
@@ -87,7 +87,7 @@
                       </div>
 
                       <div class="col-sm-4 col-md-3 col">
-                        <p class="text-success">25</p>
+                        <p class="text-success">{{$service_count}}</p>
                       </div>
 
                       <div class="col-sm-4 col-md-3 col">
