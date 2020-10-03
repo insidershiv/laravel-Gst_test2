@@ -1,0 +1,300 @@
+.heading-company {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 500;
+    font-size: .7rem;
+}
+
+.heading-due {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 500;
+    font-size: .8rem;
+}
+
+.section-border {
+    border-top: 3px solid rgb(211, 206, 206);
+    border-bottom: 3px solid rgb(211, 206, 206);
+}
+
+.section-heading {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 700;
+    font-size: .8rem;
+}
+
+.small-content {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 600;
+    font-size: .7rem;
+}
+
+.border-right {
+    border-right: 3px solid rgb(211, 206, 206);
+}
+
+.section-item-border {
+    border-right: 3px solid rgb(211, 206, 206);
+}
+
+.hrline-bottom {
+    border-bottom: 2px solid rgb(211, 206, 206);
+}
+
+.bill-item {
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: 400;
+}
+
+.dis-block {
+    display: block;
+}
+
+.hid::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 3px solid rgb(211, 206, 206);
+    transform: translate(-50%);
+    height: 13.5rem;
+}
+
+.bill-value {
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: 500;
+    font-size: .7rem;
+}
+
+body {
+    -webkit-print-color-adjust: exact !important;
+}
+
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
+@media print {
+    #print-area {}
+}
+
+.print-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#empty-message {
+    float: left;
+}
+
+input {
+    float: left
+}
+
+.product-btn {
+    display: none;
+}
+
+.product-btn-show {
+    display: block;
+}
+
+.no-border {
+    border: 0;
+    box-shadow: none;
+}
+
+.no-border:focus {
+    outline: none;
+}
+
+.section-item-border-h {
+    border-right: 3px solid rgb(211, 206, 206);
+    height: auto;
+}
+
+.center-item {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.hidden-section {
+    display: none;
+}
+
+.dot {
+    background-color: #F6F7F9;
+}
+
+
+/* date picker */
+
+.calendar {
+    background: #fff;
+}
+
+.ui-datepicker-calendar thead tr th span {
+    color: #00a8b2;
+}
+
+.ui-datepicker-header {
+    color: #b0aead;
+    background: #e9e5e3;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default {
+    border: none;
+    background: none;
+    color: grey;
+}
+
+
+/* modal */
+
+.modal-style {
+    background-color: dodgerblue;
+}
+
+.modal-header {
+    border-bottom: 0 none;
+}
+
+.modal-footer {
+    border-top: 0 none;
+}
+
+.modal-label {
+    font-size: 1rem;
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: 500;
+}
+
+
+/* delete button */
+
+.delete-button {
+    cursor: pointer;
+    color: tomato;
+}
+
+
+/* ******************************************************************************************************************************** */
+
+.oxygen-font {
+    font-family: 'Oxygen', sans-serif;
+}
+
+.oxygen-font p {
+    margin: 0;
+}
+
+.invoice {
+    margin-right: 13rem;
+}
+
+.invoice-table {
+    background-color: rgb(224, 255, 255);
+}
+
+.invoice-item {
+    flex: 5;
+}
+
+.invoice-heading {
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+.dotted {
+    border-top: 2px dotted #33D7FF;
+}
+
+.mar {
+    margin: -15px;
+    padding-bottom: 5px;
+}
+
+.total {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.total-value {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+
+/* Alternative color Row */
+
+
+/* 
+
+
+.row div:nth-child(even){
+
+  background-color: #dcdcdc;
+
+}
+
+.row div:nth-child(odd){
+
+  background-color: #aaaaaa;
+
+}
+
+​
+
+@media (min-width: 768px) {
+
+    .row div:nth-child(4n), .row div:nth-child(4n-1) {
+
+        background: #dcdcdc;
+
+    }
+
+    .row div:nth-child(4n-2), .row div:nth-child(4n-3) {
+
+        background: #aaaaaa;
+
+    }
+
+}
+
+​
+
+@media (min-width: 992px) {
+
+    .row div:nth-child(6n), .row div:nth-child(6n-1), .row div:nth-child(6n-2) {
+
+        background: #dcdcdc;
+
+    }
+
+    .row div:nth-child(6n-3), .row div:nth-child(6n-4), .row div:nth-child(6n-5) {
+
+        background: #aaaaaa;
+
+    }
+
+} */
+
+@media (max-width: 996px) {
+    /* use the max to specify at each container level */
+    .specifictd {
+        flex-direction: column;
+        text-align: center;
+        font-weight: 500;
+    }
+}
+
+body {
+    -webkit-print-color-adjust: exact !important;
+}

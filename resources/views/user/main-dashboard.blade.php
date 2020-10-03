@@ -14,9 +14,9 @@
             <div class="text-primary text-center text-uppercase mb-1">Inventory Items</div>
 
           </div>
-          <div class=" col-2 text-xscol-sm-3 text-primary font-weight-bold text-uppercase">: 250</div>
+          <div class=" col-2 text-xscol-sm-3 text-primary font-weight-bold text-uppercase">: {{$item_count}}</div>
           <div class="col-2">
-            <a href="{{url('/user/view/customers')}}" class="text-primary">View List</a>
+            <a href="{{url('/user/inventory')}}" class="text-primary">View List</a>
           </div>
           <div class="col-4 ml-auto">
             <button class="btn btn-danger btn-sm" onclick="location.href='/user/new_customer'">Add new customer <i class="fa fa-plus"></i></button>
@@ -45,7 +45,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Today's Invoice</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><p class="text-primary" id="total_users">45</p> </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><p class="text-primary" id="total_users">{{$todays_invoices}}</p> </div>
               </div>
               <div class="ml-auto">
 
@@ -88,7 +88,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Invoices Generated</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-danger" id="blocked_users">89</p></div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-danger" id="blocked_users">{{$total_invoices}}</p></div>
               </div>
               <div class="ml-auto">
                 <a href="{{url('/admin/view/blocked-users')}}" class="btn btn-danger btn-sm">View List</a>
@@ -117,8 +117,8 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-blue text-uppercase mb-1">Total Amount</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><p class="text-primary" id="total_users"></p> </div>
+                        <div class="text-xs font-weight-bold text-blue text-uppercase mb-1">Total Subtotal</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><p class="text-primary" id="total_users">{{$sales_amount}} /-</p> </div>
                       </div>
 
                     </div>
@@ -134,8 +134,8 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-orange text-uppercase mb-1">Total GST</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-success" id="active_users"></p></div>
+                        <div class="text-xs font-weight-bold text-orange text-uppercase mb-1">Total Tax</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-success" id="active_users">{{$total_tax}} /-</p></div>
                       </div>
                       <div class="col-auto">
 
@@ -152,8 +152,8 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-voilet text-uppercase mb-1">Sales Amount</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-danger" id="blocked_users"></p></div>
+                        <div class="text-xs font-weight-bold text-voilet text-uppercase mb-1">Total Sales Amount</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-danger" id="blocked_users">{{$total_amount}} /-</p></div>
                       </div>
                       <div class="col-auto">
                       </div>
@@ -210,7 +210,5 @@
         $("#myModal2").modal('show');
     }
 </script>
-
-
 
 @endsection

@@ -7,6 +7,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,7 +84,7 @@ Route::view('/test', 'admin.test');
 // USER Auth Starts Here
 
 
-Route::group(['middleware' => 'auth', 'middleware' => 'isactive', 'middleware' => 'isuser'], function () {
+Route::group(['middleware' => 'auth', 'middleware' => 'isuser', 'middleware' => 'isactive'], function () {
 
   Route::get('/user/dashboard', 'User\UserController@dashboard');
   Route::get('/user/change_password', 'User\UserController@show_form');
@@ -119,6 +120,19 @@ Route::group(['middleware' => 'auth', 'middleware' => 'isactive', 'middleware' =
   Route::get('/user/item/updateform/{id}', 'InventoryController@update_form');
   Route::post('/user/update_item/{id}', 'InventoryController@update_item');
   Route::post('/user/delete/service/{id}', 'InventoryController@delete_service');
+  Route::get('/user/viewbills', 'BillController@viewall_bills');
+  Route::get('/user/view/lastbill/{id}', 'BillController@view_lastbill');
+
+  //*********  Billing Routes Starts Here */
+
+
+  Route::get('/user/newbill/customer', 'BillController@select_customer');
+  Route::get('/user/bill/get/customer', 'BillController@selected_customer_details');
+  Route::get('/user/bill/additems', 'BillController@bill_additems');
+  Route::view('/user/bill/generateinvoice', 'user.bill.generateinvoice');
+  Route::post('/user/stock/deduct', 'BillController@stock_deduct');
+  Route::post('/user/stock/readd', 'BillController@stock_readd');
+  Route::post('/user/update/invoice', 'BillController@update_invoice');
 });
 
 
@@ -126,3 +140,5 @@ Route::get('/forgot_password', 'ResetPasswordController@password_reset_url')->na
 Route::post('/forgot_password_request', 'ResetPasswordController@password_reset_request');
 Route::view('/blocked_user', 'blocked.contact_admin');
 // Route::post('/user/logout', 'User\UserController@logout');
+
+Route::get('/print', 'InventoryController@print');

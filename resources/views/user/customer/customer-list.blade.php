@@ -243,7 +243,7 @@
         function getall_bills(id) {
 
 
-            document.location.href = '';
+            document.location.href = '/user/view/lastbill/'+id;
 
 
 

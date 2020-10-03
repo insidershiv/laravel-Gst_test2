@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -295,6 +296,7 @@ class InventoryController extends Controller
                 'search',
                 function (Builder $query, $value) {$id = Auth::user()->id;
                     $query->where('item_name', 'like', '%' . $value . '%')
+                    ->defaultSort('item_name')
                     ->where('item_id', $id)
                     ->where('item_type', 'Product');
                     
@@ -316,6 +318,7 @@ class InventoryController extends Controller
                 'search',
                 function (Builder $query, $value) {$id = Auth::user()->id;
                     $query->where('item_name', 'like', '%' . $value . '%')
+                    ->defaultSort('item_name')
                     ->where('item_id', $id)
                     ->where('item_type','Service');
                     
@@ -338,6 +341,7 @@ class InventoryController extends Controller
                 'search',
                 function (Builder $query, $value) {$id = Auth::user()->id;
                     $query->where('item_name', 'like', '%' . $value . '%')
+                    ->defaultSort('item_name')
                     ->where('item_id', $id);
                     
                     
@@ -374,6 +378,17 @@ public function inventory() {
 
 
 }
+
+
+public function print(Request $request) {
+    $data = $request["data"];
+    echo $data;
+    // $pdf = App::make('snappy.pdf.wrapper');
+    // $pdf->loadView('user.bill.generateinvoice');
+    // return $pdf->inline();
+}
+
+
 
 
 

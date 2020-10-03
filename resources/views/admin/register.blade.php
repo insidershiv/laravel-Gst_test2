@@ -192,7 +192,7 @@
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user text-info"></i> </span>
               </div>
 
-              <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="UserName">
+              <input id="name" type="text" class="form-control text-capitalize @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="UserName">
 
         @error('name')
             <span class="invalid-feedback" role="alert">
@@ -234,7 +234,7 @@
                 <span class="input-group-text text-info" id="basic-addon1">Company</span>
               </div>
 
-              <input id="company_name" type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required autocomplete="company_name" placeholder="Name of Company">
+              <input id="company_name" type="text" class="form-control text-capitalize @error('company_name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required autocomplete="company_name" placeholder="Name of Company">
 
             @error('company_name')
                 <span class="invalid-feedback" role="alert">
@@ -254,7 +254,7 @@
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marked text-info"></i></span>
               </div>
 
-              <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" placeholder="Address Of Company">
+              <input id="address" type="text" class="form-control text-capitalize @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" placeholder="Address Of Company">
 
             @error('address')
                 <span class="invalid-feedback" role="alert">
@@ -274,7 +274,7 @@
                 <span class="input-group-text text-info" id="basic-addon1">Country</span>
               </div>
 
-              <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" placeholder="Country">
+              <input id="country" type="text" class="form-control text-capitalize @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country" placeholder="Country">
 
               @error('country')
                   <span class="invalid-feedback" role="alert">
@@ -292,7 +292,7 @@
                 <span class="input-group-text text-info" id="basic-addon1">State</span>
               </div>
 
-              <input id="state" type="text" class="form-control @error('state') is-invalid @enderror" name="state" value="{{ old('state') }}" required autocomplete="state" placeholder="State">
+              <input id="state" type="text" class="form-control text-capitalize @error('state') is-invalid @enderror" name="state" value="{{ old('state') }}" required autocomplete="state" placeholder="State">
 
             @error('state')
                 <span class="invalid-feedback" role="alert">
@@ -310,7 +310,7 @@
                 <span class="input-group-text text-info" id="basic-addon1">City</span>
               </div>
 
-              <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city" placeholder="City">
+              <input id="city" type="text" class="form-control text-capitalize @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city" placeholder="City">
 
               @error('city')
                   <span class="invalid-feedback" role="alert">
@@ -329,7 +329,7 @@
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-mobile text-info"></i></span>
               </div>
 
-              <input id="mobile" type="number" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" placeholder="Contact Number">
+              <input id="mobile" type="number" class="form-control text-capitalize @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" placeholder="Contact Number">
 
             @error('mobile')
                 <span class="invalid-feedback" role="alert">

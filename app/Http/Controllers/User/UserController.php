@@ -4,7 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Customer;
 use App\Http\Controllers\Controller;
+use App\Inventory;
+use App\Invoice;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +26,29 @@ class UserController extends Controller
     public function dashboard(Request $request)
     {
         //  $request->session_destroy();
-        return view('user.main-dashboard');
+        $id = Auth::user()->id;
+
+       $items =  Inventory::where('item_id', $id)->get();
+       $item_count = $items->count();
+      $sales_data =  Invoice::where('vendor_id', $id)->get(['subtotal', 'total_amount', 'tax']);
+
+      $sales_amount = 0;
+      $tax = 0 ;
+      $total_amount = 0 ;
+
+
+      foreach($sales_data as $sale_data) {
+          $sales_amount = $sales_amount + $sale_data->subtotal;
+          $tax  = $tax + $sale_data->tax;
+            $total_amount = $total_amount + $sale_data->total_amount;
+          
+      }
+     $todays_invoices = count(Invoice::where('vendor_id', $id)->whereDate('created_at', Carbon::today() )->get());
+     $total_invoices = count(Invoice::where('vendor_id', $id)->get());
+
+       
+
+        return view('user.main-dashboard', ['item_count'=> $item_count, 'sales_amount'=> $sales_amount, 'total_tax'=>$tax, 'total_amount'=>$total_amount, 'todays_invoices'=>$todays_invoices, 'total_invoices'=>$total_invoices]);
     }
 
     public function show_form()
@@ -168,9 +193,6 @@ public function create_customer(Request $request) {
 
 
 
-
-
-
 }
 
 
@@ -205,7 +227,8 @@ return $validate;
 
 
 public function view_customers_list() {
-$customers = Customer::orderBy('name')->get();
+    $vendor_id = Auth::user()->id;
+$customers = Customer::where('vendor_id', $vendor_id)->get()->sortBy('name');
 return view('user.customer.customer-list', ['data'=>$customers]);
 }
 

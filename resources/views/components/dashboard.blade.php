@@ -140,6 +140,31 @@
 
 
 
+@if (Auth::user()->is_admin == 0)
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{ url('/user/newbill/customer') }}">
+        <i class="fas fa-plus-square"></i>
+        <span class="font-dashboard">Genearate New Bill</span>
+    </a>
+
+</li>
+@endif
+
+
+
+@if (Auth::user()->is_admin == 0)
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{ url('/user/viewbills') }}">
+        <i class="fas fa-plus-square"></i>
+        <span class="font-dashboard">View Bills</span>
+    </a>
+
+</li>
+@endif
+
+
+
+
 
 
 
