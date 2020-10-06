@@ -251,14 +251,14 @@
     <script>
          var items = {!! $items !!};
          var customer = {!! $customer !!};
-        console.log(items);
+        //console.log(items);
         console.log(customer);
         var data = [];
         for (i = 0; i < items.length; i++) {
             data[i] = (items[i]["item_name"]);
         }
 
-        console.log(data);
+       // console.log(data);
 
         source = data;
 
@@ -428,33 +428,33 @@
 
         
         function amount_calculate(amount_without_tax) {
-            console.log(amount_without_tax);
+           // console.log(amount_without_tax);
             
             product_qty = $('#item_qty').val();
-            console.log(product_qty);
+          //  console.log(product_qty);
             if(product_qty == '') {
                 product_qty = 1 ;
             }
           
             product_qty = parseInt(product_qty);
-            console.log(product_qty);
+           // console.log(product_qty);
            
             rate = $('#item_rate').val();
             rate = parseInt(rate);
-            console.log(rate);
+           // console.log(rate);
 
           
 
             amount_without_tax = parseInt(amount_without_tax);
-            console.log(amount);
+          //  console.log(amount);
 
             product_rate = rate * product_qty;
             amount = amount_without_tax + product_rate;
-            console.log(amount);
+          //  console.log(amount);
            // $('#amount').text(amount);
 
             total_taxable_amount = total_taxable_amount + product_rate;
-            console.log(total_taxable_amount);
+           // console.log(total_taxable_amount);
             $('#amount').text(total_taxable_amount);
             
             total_tax = total_tax + Math.floor((tax_slab*product_rate)/100);
@@ -479,7 +479,8 @@
 
         var billdescription = '';
         arr = {};
-
+        var bill_item_data = {}; //this will be sent to DB as individual items in the bill
+       
         function add_item() {
             if(pname == '') {
                 swal({
@@ -511,7 +512,7 @@
             //console.log(add_items_list);
             if(item_type == 'Product'){
                 product_qty = $('#item_qty').val();
-                console.log(product_qty);
+                //console.log(product_qty);
                 $.ajax({
                     headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -532,7 +533,7 @@
             
             
             if(samestate == 1){
-                console.log(sgst);
+                //console.log(sgst);
                 table_sgst = sgst.slice(0,-1);
                 table_cgst = cgst.slice(0,-1);
               
@@ -547,7 +548,8 @@
                 row_total = product_rate + sgst_amount + cgst_amount;
                 row_total = Math.floor(row_total);
 
-
+                db_array = [];
+                var obj = {} ;
             
 
 var myvar = '<tr class="table-row" id="row-' + count   + '">'+
@@ -563,6 +565,28 @@ var myvar = '<tr class="table-row" id="row-' + count   + '">'+
 '                    <td class="small">'+ row_total  +'</td>'+
 '                </tr>';
 
+
+
+    obj["item_name"] = pname;
+    obj["rate"] = rate;
+    obj["product_rate"] = product_rate;
+    obj["sgst"]= sgst_amount;
+    obj["cgst"] = cgst_amount;
+    obj["item_total"] = row_total;
+    obj["hsn_sac"] = item_hsn;
+    obj["item_type"] = item_type;
+    obj["item_total"] = row_total;
+    obj["sgst_rate"] = table_sgst;
+    obj["cgst_rate"] = table_cgst;
+    if(item_type =='Product') {
+        obj["item_qty"] = product_qty;
+    }
+    obj["customer_id"] = customer["id"];
+
+    bill_item_data[count] = obj ;
+
+
+    
 
 
     $('#tbody').append(myvar);
@@ -581,6 +605,9 @@ var myvar = '<tr class="table-row" id="row-' + count   + '">'+
                 row_total = product_rate + sgst_amount + cgst_amount;
                 row_total = Math.floor(row_total);
 
+ var db_array = [];
+ var obj = {} ;
+ 
 
             
 
@@ -599,11 +626,29 @@ var myvar = '<tr class="table-row" id="row-' + count   + '">'+
 
 
 
+    obj["item_name"] = pname;
+    obj["rate"] = rate;
+    obj["product_rate"] = product_rate;
+    obj["igst"] = igst_amount;
+    obj["item_total"] = row_total;
+    obj["hsn_sac"] = item_hsn;
+    obj["item_type"] = item_type;
+    obj["item_total"] = row_total;
+    obj["igst_rate"] = tax_slab;
+    
+    if(item_type =='Product') {
+        obj["item_qty"] = product_qty;
+    }
+    obj["customer_id"] = customer["id"];
+
+
+bill_item_data[count] = obj;
+
     $('#tbody').append(myvar);
             }
 
-            console.log(count);
-            console.log(bill_item);
+           // console.log(count);
+           // console.log(bill_item);
             var bill_item   = [];
 
             bill_item["name"] = item_name;
@@ -814,7 +859,7 @@ billdescription = billdescription + row_item;
 
 
   }
-  console.log(arr);
+  //console.log(arr);
 
 var word = convertNumberToWords(total_payable_amount);
 localStorage.setItem('amount_word', word);
@@ -856,12 +901,17 @@ localStorage.setItem('amount_word', word);
             id = cid[1];
             id = String(id);
             console.log(id);
+            delete bill_item_data[id];
+            console.log(bill_item_data);
 
             delete arr[id];
             $('#row-' + id).remove();
-            console.log(arr);
+           
            product_name = ( event.parentNode.childNodes[3].outerText);
           qty =   (event.parentNode.childNodes[6].innerText);
+          valid_qty = isNaN(qty) ;
+
+          if(!valid_qty){
 
           $.ajax({
             headers: {
@@ -875,6 +925,7 @@ localStorage.setItem('amount_word', word);
                   console.log("success");
               }
           });
+        }
 
         }
 
@@ -889,6 +940,7 @@ localStorage.setItem('amount_word', word);
             // $(obj).keyup(showproductbtn);
 
         }
+       
 
         function goto_bill() {
         var bills = '';
@@ -899,22 +951,67 @@ for(var propt in arr){
 
  var id = (customer["id"]);
 
+ amount_words = convertNumberToWords(total_payable_amount);
+
 $.ajax({
     headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
     type: "POST",
     url: "/user/update/invoice",
-    data: {"subtotal":total_taxable_amount, "total_tax":total_tax, "total_amount":total_payable_amount, "id":id},
+    data: {"subtotal":total_taxable_amount, "total_tax":total_tax, "total_amount":total_payable_amount, "id":id, "amount_words":amount_words},
     
     success: function (response) {
         console.log("success");
     }
 });
 
+keys = Object.keys(bill_item_data) ;
+
+var bill_arr = [];
+
+keys.forEach(element => {
+   item =(bill_item_data[element]);
+   bill_arr.push(item);
+});
+//console.log(JSON.stringify(bill_arr));
+
+
+
+$.ajax({
+    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    type: "POST",
+    url: "/user/saveto/billitems/"+customer["id"],
+    data: {"bill_items":JSON.stringify( bill_arr)},
+    
+    success: function (response) {
+        console.log("success");
+    }
+});
+
+
+$.ajax({
+    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    type: "POST",
+    url: "/user/saveto/billdetails/"+customer["id"],
+    data: {"amount":total_payable_amount, "customer_name":customer["name"]},
+    
+    success: function (response) {
+        console.log("success");
+    }
+});
+
+
+
+
 localStorage.setItem('bill-description-list', bills);
 
-location.href = '/user/bill/generateinvoice';
+console.log(bill_item_data);
+//location.href = '/user/bill/generateinvoice';
 
 
         }

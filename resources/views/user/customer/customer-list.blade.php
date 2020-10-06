@@ -31,7 +31,7 @@
             <div>
                 <h5 class="text-success mt-2">Please Start Adding Customers....</h5>
 
-                <button class="btn btn-success col-6 mt-5" onclick="location.href='/user/new_customer'"> Add Product To Inventory
+                <button class="btn btn-success col-6 mt-5" onclick="location.href='/user/new_customer'"> Add Customers
                     <i class="fa fa-plus"></i> </button>
 
             </div>
@@ -82,8 +82,12 @@
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->company_name }}</td>
                             <td class="text-success">{{ $customer->address }}</td>
-                            <td><button class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9"
-                                    onclick="getall_bills(this.id)" id="{{ $customer->id }}">Get Last Bill</button></td>
+                            <td>
+                               
+
+                                    <a href="/user/view/lastbill/{{$customer->id}}" class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9" target="_blank">Get Last Bill</a>
+
+                                </td>
                             <td><button class="btn btn-info ml-1 btn-sm col-md-12  col-xs-9"
                                     onclick="location.href = '/user/customer/bills/{{ $customer->id }}'"
                                     id="{{ $customer->id }}">Get All Bills</button></td>
@@ -240,14 +244,6 @@
 
 
 
-        function getall_bills(id) {
-
-
-            document.location.href = '/user/view/lastbill/'+id;
-
-
-
-        }
 
     </script>
 

@@ -1,3 +1,11 @@
+<style type="text/css" media="print">
+   @media print {
+  @page { margin: 0; }
+  body { margin: 5rem; }
+}
+</style>
+
+
 
 <div class="container p-0" id="billing">
     <div class="container no-gutters hrline-bottom">

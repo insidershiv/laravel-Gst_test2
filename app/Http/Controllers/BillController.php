@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
+use App\Billdetail;
+use App\Billitem;
 use App\Customer;
 use App\Inventory;
 use App\Invoice;
@@ -84,6 +87,7 @@ class BillController extends Controller
         $total_tax =    $request["total_tax"];
         $total_amount = $request["total_amount"];
         $customer_id =  $request["id"];
+        $amount_words = $request["amount_words"];
         $vendor_id = Auth::user()->id;
 
 
@@ -98,7 +102,7 @@ class BillController extends Controller
 
         $feed = ["customer_id"=>$customer_id, 'last_invoice'=>$invoice_id];
         Lastinvoice::create($feed);
-        $invoice_data = ["subtotal"=>$subtotal, "tax"=>$total_tax, "total_amount"=>$total_amount, "customer_id"=>$customer_id, "vendor_id"=>$vendor_id, "invoice_id"=>$invoice_id];
+        $invoice_data = ["subtotal"=>$subtotal, "tax"=>$total_tax, "total_amount"=>$total_amount, "customer_id"=>$customer_id, "vendor_id"=>$vendor_id, "invoice_id"=>$invoice_id, "amount_words"=>$amount_words];
         Invoice::create($invoice_data);        
 
         
@@ -115,7 +119,7 @@ class BillController extends Controller
         echo $invoice_id;
 
         $feed = ['last_invoice'=>$invoice_id];
-        $invoice_data = ["subtotal"=>$subtotal, "tax"=>$total_tax, "total_amount"=>$total_amount, "customer_id"=>$customer_id, "vendor_id"=>$vendor_id, "invoice_id"=>$invoice_id];
+        $invoice_data = ["subtotal"=>$subtotal, "tax"=>$total_tax, "total_amount"=>$total_amount, "customer_id"=>$customer_id, "vendor_id"=>$vendor_id, "invoice_id"=>$invoice_id, "amount_words"=>$amount_words];
 
           Lastinvoice::where('customer_id',$customer_id)->update($feed);
           Invoice::create($invoice_data); 
@@ -135,8 +139,159 @@ class BillController extends Controller
 
     public function view_lastbill($id) {
        $last_invoice =  Lastinvoice::where('customer_id', $id)->get('last_invoice');
-       echo $last_invoice;
+       if(count($last_invoice) == 0 ) {
+           return view('user.bill.view-savedbill', ['no_items'=>1]);
+       }
+       $last_invoice = $last_invoice[0]["last_invoice"];
+       $bill_details = Billitem::where('invoice_id', $last_invoice)->get();
+       $bill_details = $bill_details;
+       $customer = Customer::where('id', $id)->get();
+       $customer = $customer[0];
+
+       $final_amounts = Invoice::where('invoice_id', $last_invoice)->get(['subtotal', 'tax', 'total_amount', 'amount_words']);
+        $final_amounts = $final_amounts[0];
+
+       
+     return view('user.bill.view-savedbill', ["bill_details"=>$bill_details, "invoice_id"=>$last_invoice, "customer"=>$customer, 'final_amounts'=>$final_amounts , 'no_items'=>0]);
+   
     }
+
+
+    public function view_bill(Request $request, $id) {
+
+        $vendor_id = Auth::user()->id;
+        $bill_details = Billitem::where(['invoice_id'=>$id, 'vendor_id'=>$vendor_id])->get();
+       
+        
+        if(count($bill_details) == 0 ){
+            $no_items = 1;
+            return view('user.bill.view-bill', ['no_items'=>$no_items]);
+        }else {
+            $no_items = 0 ;
+        }
+        $temp = Billdetail::where('invoice_id',$id)->get('customer_id');
+        $customer_id = $temp[0];
+        $customer_id = $customer_id["customer_id"];
+       
+         $customer = Customer::where('id', $customer_id)->get();
+         $customer = $customer[0];
+         //return view('user.bill.view-bill', ['customer'=>$customer]);
+
+ 
+         $final_amounts = Invoice::where(['invoice_id'=> $id, 'vendor_id'=>$vendor_id])->get(['subtotal', 'tax', 'total_amount', 'amount_words']);
+          $final_amounts = $final_amounts[0];
+
+
+          return view('user.bill.view-bill', ["bill_details"=>$bill_details, "invoice_id"=>$id, "customer"=>$customer, 'final_amounts'=>$final_amounts , 'no_items'=>$no_items]);
+
+
+        // return view('user.bill.view-bill');
+    }
+
+
+
+    public function addto_billitems(Request $request, $id) {
+
+
+        // $data = $request["bill_items"];
+        $data = $request->input('bill_items');
+
+        $obj =   ((json_decode($data)));
+        $customer_id = $id;
+        
+        $vendor_id = Auth::user()->id;
+        
+        $invoice_id = Lastinvoice::where('customer_id', $customer_id)->get('last_invoice');
+        $invoice_id = $invoice_id[0];
+        $temp =  $invoice_id["last_invoice"];
+
+
+         $length = count($obj);
+
+         for($i = 0 ; $i <$length ; $i++) {
+            $arr = (array)$obj[$i];
+            $arr["vendor_id"] = $vendor_id;
+            $arr["invoice_id"] = $temp;
+            $arr["customer_id"] = $customer_id;
+            Billitem::create($arr);
+            
+         }
+       
+      
+       
+    }
+
+
+    public function addto_billdetails(Request $request, $id) {
+
+        $customer_id = $id ;
+        $amount  = $request["amount"];
+        $customer_name = $request["customer_name"];
+        $vendor_id = Auth::user()->id;
+        $invoice_id = Lastinvoice::where('customer_id', $customer_id)->get('last_invoice');
+        $invoice_id = $invoice_id[0];
+        $temp =  $invoice_id["last_invoice"];
+        $invoice_id = $temp;
+        $data = ["customer_id"=>$customer_id, "vendor_id"=>$vendor_id, "amount"=>$amount, "customer_name"=>$customer_name, "invoice_id"=>$invoice_id];
+        Billdetail::create($data);
+        
+        
+
+    }
+
+
+    public function get_customer_allbills($id) {
+
+
+        $customer_id = $id ;
+        $data = Billdetail::where('customer_id', $id)->get();
+        if(count( (array)$data) == 0) {
+            $no_data = 1;
+        }else {
+            $no_data = 0 ;
+        }
+
+        return view('user.bill.customer-allbills', ["data"=>$data, "no_data"=>$no_data]);
+    }
+
+
+    public function viewbill_date(Request $request) {
+
+        $start_date = $request["start_date"];
+        $end_date = $request["end_date"];
+        
+        if($start_date == '') {
+            $start_date = date("y-m-d");
+            $end_date = date("y-m-d");
+        }
+        $data = Billdetail::whereBetween('created_at', [$start_date , $end_date])->get();
+        if(count( (array)$data) == 0) {
+            $no_data = 1;
+        }else {
+            $no_data = 0 ;
+        }
+
+        for($i=0; $i<=count((array)$data); $i++ ) {
+            $createdAt = Carbon::parse($data[$i]["created_at"]);
+         
+          $date  =  $createdAt->format('M d Y');
+          $data[$i]["created"]=$date;
+        }
+
+        // $createdAt = Carbon::parse($data[0]["created_at"]);
+        // $data = $createdAt->format('M d Y');
+     
+    
+
+      
+        return  $data;
+
+
+
+
+    }
+
+    
 
 
 

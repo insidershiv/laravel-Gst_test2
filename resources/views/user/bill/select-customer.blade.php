@@ -19,11 +19,13 @@
     <script>
         var customers = {!! $customers !!};
 
-
-        console.log(customers);
+        len = Object.getOwnPropertyNames(customers).length;
+      
         var source = customers;
         var data = [];
-        for (i = 0; i < customers.length; i++) {
+       
+
+        for (var i = 0; i < len; i++) {
             data[i] = (customers[i]["name"]).toUpperCase() + ' ( ' + (customers[i]["company_name"]).toUpperCase() + ' )';
 
         }
@@ -31,6 +33,7 @@
 
 
         source = data;
+      
 
         // $("#tags").autocomplete({
         //     source: availableTags

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{{asset('css/invoice.css')}}" media="all">
 <link href="{{asset("css/main.css")}}" rel="stylesheet" media="all">
 
-<div class="container  pl-0 pr-0 border" id="print-area">
+<div class="container  pl-0 pr-0 border mt-5" id="print-area">
 
 
     <x-heading/> 
@@ -64,6 +64,7 @@ $('#amount_words').text(word);
   function printbill() {
   
 // console.log(localStorage.getItem('bill-description-list'));
+$('#printid').hide();
 window.print();
   
   }

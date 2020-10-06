@@ -227,7 +227,7 @@ return $validate;
 
 
 public function view_customers_list() {
-    $vendor_id = Auth::user()->id;
+$vendor_id = Auth::user()->id;
 $customers = Customer::where('vendor_id', $vendor_id)->get()->sortBy('name');
 return view('user.customer.customer-list', ['data'=>$customers]);
 }
