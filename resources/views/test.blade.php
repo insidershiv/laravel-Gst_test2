@@ -1,44 +1,150 @@
-<div class="container d-flex align-items-center justify-content-center mt-5">
-    <div class="table-responsive card" id="first-table">
-        <table class="table mb-0">
-            <thead style="background:#3F51B5;">
-                <tr>
-                    <th class="text-warning">
-                        <p class="text-color-white"> # </p>
-                    </th>
-                    <th class="th-lg">
-                        <p><i class="fa fa-user pr-1 text-color-white " aria-hidden="true"></i></p>
-                    </th>
-                    <th class="th-lg">
-                        <p class="text-color-white"> Invoice ID </p>
-                    </th>
-                    <th class="th-lg">
-                        <p class="text-color-white">Bill Amount</p>
-                    </th>
-                    <th class="th-lg">
-                        <p class="text-color-white">Date</p>
-                    </th>
-                    <th class="th-lg"></th>
-                </tr>
-            </thead>
-            <tbody>undefined<tr>
-                    <td>1</td>
-                    <td class="text-capitalize"> <a href="/user/view/customer/1">light</a></td>
-                    <td>2020-6</td>
-                    <td>5600</td>
-                    <td>2020-10-05T14:16:54.000000Z</td>
-                    <td> <a href="/user/viewbill/2020-6" class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9"
-                            target="_blank">View Bill</a> </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td class="text-capitalize"> <a href="/user/view/customer/1">light</a></td>
-                    <td>2020-7</td>
-                    <td>23600</td>
-                    <td>2020-10-05T14:23:17.000000Z</td>
-                    <td> <a href="/user/viewbill/2020-7" class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9"
-                            target="_blank">View Bill</a> </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<script>
+    //     // var customers = {!! $customers !!};
+    //     // console.log(customers);
+    //     // if(customers.length != 0) {
+            
+        
+    //     // //len = Object.getOwnPropertyNames(customers).length;
+    //     // len = customers.length;
+    //     // var source = customers;
+    //     // var data = [];
+       
+    //     // for (let i = 0; i < len; i++) {
+    //     //     data[i] = (customers[i]["name"]).toUpperCase() + ' ( ' + (customers[i]["company_name"]).toUpperCase() + ' )';
+    //     // }
+
+
+
+    //     // source = data;
+    //     // }
+
+    //     // $("#tags").autocomplete({
+    //     //     source: availableTags
+    //     // });
+    
+       
+
+
+    //     function autocompletelistner(event, ui) {
+    //         if (ui.content.length === 0) {
+    //             current = $(this);
+    //             spanparent = (current.parent());
+    //             childs = spanparent.children();
+    //             child = (childs[1]);
+    //             $(child).removeClass("product-btn");
+    //             match = false;
+    //             $("#empty-message").text("No results found");
+
+    //         } else {
+    //             $("#empty-message").empty();
+
+
+    //         }
+    //     }
+
+
+    //     function selecteditem(event, ui) {
+    //         // item has been selected from drop down (autocomplete)
+         
+    //         pname = ui.item.label;
+
+    //         var temp = pname.split(' (');
+    //         var name = (temp[0]).trim();
+    //         var company_name = temp[1];
+    //         company_name = company_name.split(' )');
+    //         company_name = company_name[0].trim();
+    //         console.log(company_name);
+    //         console.log(name);
+
+
+    //         $.ajax({
+    //             type: "GET",
+    //             url: "/user/bill/get/customer",
+    //             data: {
+    //                 'name': name,
+    //                 'company_name': company_name
+    //             },
+
+    //             success: function(response) {
+    //                 data = JSON.parse(response);
+    //                var customer = (data[0]);
+                   
+    //                $('#customer-data').empty();
+    //                  myvar = '<div class="row" id="customer-content">' +
+    //                     '' +
+    //                     '    <div class="col-md-2 col-4 text-primary">Customer: </div>' +
+    //                     '<div class="ml-1 col-md-3 col-6 text-secondary text-capitalize">' +  customer["name"] + '</div>' +
+    //                     '' +
+    //                     '<div class="offset-md-1 col-md-2 text-primary col-4">Email: </div>' +
+    //                     '<div class="col-md-3 text-capitalize text-secondary col-6">'+ customer["email"]  +'</div>' +
+    //                     '</div>' +
+    //                     '' +
+    //                     '<div class="row">' +
+    //                     '' +
+    //                     '    <div class="col-md-2 text-primary col-4">Company: </div>' +
+    //                     '<div class="ml-1 col-md-3 text-secondary text-capitalize col-6">' + customer["company_name"] + '</div>' +
+    //                     '' +
+    //                     '<div class="offset-md-1 col-md-2 text-primary col-4">Address: </div>' +
+    //                     '<div class="col-md-3 text-capitalize text-secondary col-6">'+ customer['address'] + '</div>' +
+    //                     '</div>' +
+    //                     '' +
+    //                     '<div class="row">' +
+    //                     '' +
+    //                     '    <div class="col-md-1 text-primary col-4">State: </div>' +
+    //                     '<div class="offset-md-1 col-md-3 text-secondary text-capitalize col-6">' + customer["state"]    +'</div>' +
+    //                     '' +
+    //                     '<div class="offset-md-1 col-md-2 text-primary col-4">City: </div>' +
+    //                     '<div class="col-md-4 text-capitalize text-secondary col-6">'+ customer["city"]  + '</div>' +
+    //                     '</div>'+
+    //                     '' +
+    //                     '<div class="row">' +
+    //                     '' +
+    //                     '    <div class="col-md-2 text-primary col-4">Pincode: </div>' +
+    //                     '<div class=" col-md-3 text-secondary text-capitalize col-6">' + customer["pincode"]    +'</div>' +
+    //                     '' +
+    //                     '<div class="offset-md-1 col-md-2 text-primary col-4">Country: </div>' +
+    //                     '<div class="col-md-4 text-capitalize text-secondary col-6">'+ customer["country"]  + '</div>' +
+    //                     '</div>';
+
+
+
+
+    //             $('#customer-data').append(myvar);
+
+    //             $('#continue-button').removeAttr('hidden');
+
+
+
+
+
+
+
+
+
+
+    //             },
+    //             error: function(xhr) {
+    //                 console.log("error");
+    //             }
+    //         });
+
+
+
+
+    //     }
+
+
+
+
+
+    //     function addautocomplete(obj) {
+    //         $(obj).autocomplete({
+    //             source,
+    //             response: autocompletelistner,
+    //             select: selecteditem
+    //         });
+    //         // $(obj).keyup(showproductbtn);
+          
+    //     }
+
+    // </script>

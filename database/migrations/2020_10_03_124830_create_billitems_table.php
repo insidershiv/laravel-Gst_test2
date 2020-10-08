@@ -20,20 +20,20 @@ class CreateBillitemsTable extends Migration
             $table->string('item_type');
             $table->integer('item_qty')->default(0);
             $table->integer('rate');
-            $table->integer('sgst')->default(0);
-            $table->integer('cgst')->default(0);
-            $table->integer('igst')->default(0);
+            $table->float('sgst')->default(0);
+            $table->float('cgst')->default(0);
+            $table->float('igst')->default(0);
             $table->bigInteger('customer_id')->unsigned();
             $table->bigInteger('vendor_id')->unsigned();
             $table->string('invoice_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('invoice_id')->references('invoice_id')->on('invoices')->onDelete('cascade');
-            $table->integer('item_total');
+//$table->foreign(['customer_id','invoice_id'])->references(['customer_id','invoice_id'])->on(['invoices'])->onDelete('cascade');
+            $table->float('item_total');
             $table->integer('hsn_sac');
-            $table->integer("sgst_rate")->default(0);
-            $table->integer("cgst_rate")->default(0);
-            $table->integer("igst_rate")->default(0);
+            $table->float("sgst_rate")->default(0);
+            $table->float("cgst_rate")->default(0);
+            $table->float("igst_rate")->default(0);
         });
     }
 

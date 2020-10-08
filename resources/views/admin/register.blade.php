@@ -382,6 +382,28 @@
 
     </div>
 
+    <div class="form-row mt-3">
+        <div class="form-group input-group col-md-5">
+
+
+            <div class="input-group-prepend">
+                <span class="input-group-text text-info" id="basic-addon1">GSTN</span>
+              </div>
+
+              <input id="gstn" type="text" class="form-control text-capitalize @error('gstn') is-invalid @enderror" name="gstn" value="{{ old('gstn') }}" required autocomplete="GSTN" placeholder="GSTN">
+
+              @error('gstn')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+
+        </div>
+    </div>
+
+
+
+
 
     <div class="form-row mt-5">
 

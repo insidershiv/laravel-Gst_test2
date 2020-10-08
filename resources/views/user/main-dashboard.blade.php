@@ -49,7 +49,7 @@
               </div>
               <div class="ml-auto">
 
-                <a href="{{url('/admin/view/users')}}" class="btn btn-primary btn-sm">View List</a>
+                <a href="{{url('/user/view/todaysinvoice')}}" class="btn btn-primary btn-sm">View List</a>
                 </div>
             </div>
 
@@ -64,17 +64,14 @@
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col- mr-2">
-                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Invoices Generated</div>
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Today's Sale Amount</div>
 
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><p class="text-primary" id="total_users">45</p> </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><p class="text-primary" id="total_users">{{$todays_sale}}</p> </div>
 
 
               </div>
 
-              <div class="ml-auto">
-
-                <a href="{{url('/admin/view/active-users')}}" class="btn btn-success btn-sm">View List</a>
-                </div>
+             
 
             </div>
 
@@ -90,9 +87,7 @@
                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Invoices Generated</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800" ><p class="text-danger" id="blocked_users">{{$total_invoices}}</p></div>
               </div>
-              <div class="ml-auto">
-                <a href="{{url('/admin/view/blocked-users')}}" class="btn btn-danger btn-sm">View List</a>
-              </div>
+              
             </div>
 
           </div>
@@ -204,6 +199,85 @@
 
 
 @endif
+
+
+
+
+@if (($no_data) == 1)
+
+
+
+@else
+<div class="container d-flex justify-content-center mt-3">
+<p class="h6">Last 5 transactions</p>
+
+</div>
+<div class="container d-flex align-items-center justify-content-center mt-2">
+
+
+
+<div class="table-responsive card" id="first-table">
+    <table class="table mb-0">
+        <thead style="background:#3F51B5;">
+            <tr>
+                <th class="text-warning">
+                    <p class="text-color-white"> # </p>
+                </th>
+                <th class="th-lg">
+                    <p><i class="fa fa-user pr-1 text-color-white " aria-hidden="true"></i></p>
+                </th>
+                <th class="th-lg">
+                    <p class="text-color-white"> Invoice ID </p>
+                </th>
+                <th class="th-lg">
+                    <p class="text-color-white">Bill Amount</p>
+                </th>
+                <th class="th-lg">
+                    <p class="text-color-white">Date</p>
+                </th>
+              
+              
+               
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach ($data as $customer)
+
+
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                <td class="text-capitalize"> <a href="/user/view/customer/{{$customer->id}}">{{ $customer->customer_name }}</a></td>
+                    <td>{{ $customer->invoice_id }}</td>
+                    <td>{{ $customer->amount }}</td>
+                    <td>{{ $customer->created }}</td>
+
+                           
+
+                </tr>
+
+
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+</div>
+
+
+
+@endif
+
+
+{{$todays_sale}}
+
+
+
+
 
 <script>
  if($("#myModal2")) {

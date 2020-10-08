@@ -23,7 +23,7 @@ class CreateInventoriesTable extends Migration
             $table->bigInteger('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('item_hsn_sac');
-            $table->integer('item_tax_slab')->nullable();
+            $table->float('item_tax_slab')->nullable();
             $table->boolean('item_exemption')->default(false);
             $table->longText('item_exemption_reason')->nullable();
             $table->unique(['item_id','item_hsn_sac']);

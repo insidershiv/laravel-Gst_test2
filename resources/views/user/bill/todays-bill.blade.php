@@ -4,6 +4,8 @@
 
 
 
+
+
 @if (($no_data) == 1)
 
 
@@ -42,9 +44,7 @@
                 <th class="th-lg">
                     <p class="text-color-white">Bill Amount</p>
                 </th>
-                <th class="th-lg">
-                    <p class="text-color-white">Date</p>
-                </th>
+              
               
               
                 <th class="th-lg"></th>
@@ -56,12 +56,12 @@
             @foreach ($data as $customer)
 
 
-        <tr id="{{$customer->customer_id}}">
+                <tr>
                     <td>{{ $loop->iteration }}</td>
                 <td class="text-capitalize"> <a href="/user/view/customer/{{$customer->id}}">{{ $customer->customer_name }}</a></td>
                     <td>{{ $customer->invoice_id }}</td>
                     <td>{{ $customer->amount }}</td>
-                    <td>{{ $customer->created_at }}</td>
+                
 
                    
                    
@@ -70,7 +70,7 @@
                    
                             <td>
                                 
-                            <a href="/user/viewbill/{{$customer->invoice_id}}/{{$customer->customer_id}}" class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9" target="_blank">View Bill</a>
+                        <a href="/user/viewbill/{{$customer->invoice_id}}" class="btn btn-danger ml-1 btn-sm col-md-12  col-xs-9" target="_blank">View Bill</a>
 
                     </td>
 
@@ -113,6 +113,5 @@
 
 
 
-
-
+    
 @endsection

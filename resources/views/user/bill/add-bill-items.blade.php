@@ -34,8 +34,8 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                  <div class="row">  
-                <div class="col-5 col-md-7 col-lg-6 font-responsive text-primary">Taxable Amount :</div>
-                <div class="col-5  col-md-5 col-lg-6 font-responsive text-capitalize text-info">
+                <div class="col-5 col-md-7 col-lg-7 font-responsive text-primary">Taxable Amount :</div>
+                <div class="col-5  col-md-5 col-lg-5 font-responsive text-capitalize text-info">
                    <span id="amount">0</span> 
                 </div>
             </div> 
@@ -44,8 +44,8 @@
              
                    <div class="col-md-6 col-lg-6">
                    <div class="row">
-                    <div class="col-5 col-sm-5 col-md-5 col-lg-3 font-responsive text-primary">Total Tax :</div>
-                    <div class="col-5 col-sm-5 col-md-5 col-lg-3 font-responsive text-capitalize text-info">
+                    <div class="col-5 col-sm-5 col-md-5 col-lg-4 font-responsive text-primary">Total Tax :</div>
+                    <div class="col-5 col-sm-5 col-md-5 col-lg-4 font-responsive text-capitalize text-info">
                         <span id="total-tax">0</span>
                     </div>
                 </div>
@@ -56,10 +56,10 @@
 
             <div class="row">
               
-            <div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-6">
                 <div class="row">
-                <div class="col-5 col-sm-5 col-md-5 col-lg-3 font-responsive text-danger">Total Payable Amount :</div>
-                <div class="col-5 col-sm-5 col-md-6 col-lg-6 font-responsive text-capitalize text-danger">
+                <div class="col-5 col-sm-5 col-md-4 col-lg-7 font-responsive text-danger">Total Payable Amount :</div>
+                <div class="col-5 col-sm-5 col-md-6 col-lg-5 font-responsive text-capitalize text-danger">
                     <span id="total-payable-amount">0</span>
                 </div>
             </div>
@@ -291,6 +291,7 @@
         total_tax = 0;
         total_payable_amount = 0;
         item_hsn = '';
+        tax_slab = 0 ;
         
 
         function selecteditem(event, ui) {
@@ -350,7 +351,7 @@
                 row_local_amount = rate;
                 row_local_tax = (tax_slab*rate)/100;
                 row_local_amount = row_local_amount + row_local_tax;
-                row_local_amount = Math.floor(row_local_amount);
+                row_local_amount = (row_local_amount);
                 $('#rowitem_local_amount').text(row_local_amount);
             }
               }
@@ -361,7 +362,7 @@
                 row_local_amount = rate * selected_qty;
                 row_local_tax = (tax_slab*rate)/100;
                 row_local_amount = row_local_amount + row_local_tax;
-                row_local_amount = Math.floor(row_local_amount);
+                row_local_amount = (row_local_amount);
                 $('#rowitem_local_amount').text(row_local_amount);
             }
               }
@@ -374,14 +375,14 @@
         amount_without_tax = $('#amount').text();
 
         qty_exceed = 0 ;
-
+entered_stock = ''
         $('#item_qty').on({
             "keyup": function() {
                entered_stock = $('#item_qty').val();
-               if(entered_stock == '' || entered_stock <= 0) {
-                   entered_stock = 1;
-                   $('#item_qty').val(1);
-               }
+            //    if(entered_stock == '' || entered_stock <= 0) {
+            //        entered_stock = 1;
+            //        $('#item_qty').val(1);
+            //    }
                if(item_stock != -1 && entered_stock <= item_stock) {
 
                $('#item_qty').removeClass('is-invalid');
@@ -456,8 +457,8 @@
             total_taxable_amount = total_taxable_amount + product_rate;
            // console.log(total_taxable_amount);
             $('#amount').text(total_taxable_amount);
-            
-            total_tax = total_tax + Math.floor((tax_slab*product_rate)/100);
+            console.log(tax_slab);
+            total_tax = total_tax + ((tax_slab*product_rate)/100);
             $('#total-tax').text(total_tax);
             total_payable_amount =total_taxable_amount + total_tax;
             $('#total-payable-amount').text(total_payable_amount);
@@ -501,6 +502,16 @@
                 });
                 return;
             }
+
+            if(item_type == 'Product' &&  entered_stock == '') {
+                swal({
+                    title: "Please Select Quantity",
+
+                    icon: "warning",
+                    button: "Ok",
+                });
+                return;
+            }
             count++;
             row_total = 0;
             var add_items_list = {};
@@ -534,8 +545,15 @@
             
             if(samestate == 1){
                 //console.log(sgst);
+
+                if(tax_slab == 0 ) {
+                table_sgst = 0;
+                table_cgst = 0;
+               }else {
                 table_sgst = sgst.slice(0,-1);
                 table_cgst = cgst.slice(0,-1);
+               }
+              
               
               
                 if(item_type == 'Product') {
@@ -546,7 +564,7 @@
                 cgst_amount = sgst_amount;
 
                 row_total = product_rate + sgst_amount + cgst_amount;
-                row_total = Math.floor(row_total);
+                row_total = (row_total);
 
                 db_array = [];
                 var obj = {} ;
@@ -595,15 +613,20 @@ var myvar = '<tr class="table-row" id="row-' + count   + '">'+
 
 
             if(samestate == 0){
-               
+               if(tax_slab == 0 ) {
+                table_sgst = 0;
+                table_cgst = 0;
+               }else {
                 table_sgst = sgst.slice(0,-1);
                 table_cgst = cgst.slice(0,-1);
+               }
+              
                 sgst_amount = ((table_sgst)* rate)/100;
                 cgst_amount = sgst_amount;
-                igst_amount = Math.floor((tax_slab * product_rate)/100);
+                igst_amount = ((tax_slab * product_rate)/100);
 
                 row_total = product_rate + sgst_amount + cgst_amount;
-                row_total = Math.floor(row_total);
+                row_total = (row_total);
 
  var db_array = [];
  var obj = {} ;
@@ -671,7 +694,7 @@ bill_item_data[count] = obj;
 
           
 
-            
+            console.log(obj);
 
 
             //console.log(bill_items);
@@ -951,6 +974,26 @@ for(var propt in arr){
 
  var id = (customer["id"]);
 
+
+ var obj_size = Object.keys(bill_item_data).length;
+ console.log(obj_size);
+
+ if(obj_size == 0) {
+    swal({
+                    title: "Please Select Item First",
+
+                    icon: "warning",
+                    button: "Ok",
+                });
+
+             return;
+                
+ }
+
+
+
+
+
  amount_words = convertNumberToWords(total_payable_amount);
 
 $.ajax({
@@ -1011,10 +1054,26 @@ $.ajax({
 localStorage.setItem('bill-description-list', bills);
 
 console.log(bill_item_data);
-//location.href = '/user/bill/generateinvoice';
+
+$.ajax({
+    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    type: "POST",
+    url: "/user/get/lastinvoice/"+customer["id"],
+    success: function (response) {
+      window.open('/user/viewbill/'+response+ '/'+customer["id"]);
 
 
-        }
+location.href = '/user/dashboard';
+
+
+
+    }
+});
+
+
+ }
 
         function convertNumberToWords(amount) {
     var words = new Array();

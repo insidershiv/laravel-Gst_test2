@@ -51,7 +51,7 @@
                             <p class="m-0 word-wrap text-capitalize">{{ Auth::user()->address }}</p>
                             <p class="m-0 text-capitalize">{{ Auth::user()->city }} {{ Auth::user()->state }}</p>
                             <p class="m-0"> {{ Auth::user()->country }}</p>
-                            <p class="m-0"> GSTIN 23154894654898794</p>
+                        <p class="m-0"> GSTN  <span class="">{{Auth::user()->gstn}}</span>  </p>
                         </div>
                     </div>
 
@@ -218,8 +218,8 @@
 
 
                     <div class="row">
-                        <span class="section-heading ml-1">GST :</span><input type="text"
-                            class="no-border section-heading text-capitalize ml-2 bg-color-grey" placeholder="GSt">
+                        <span class="section-heading ml-1">GST :</span>
+                        <span class="text-capitalize small">{{$customer["gstn"]}}</span>
 
                     </div>
 
@@ -806,6 +806,8 @@
     <button class="btn btn-success" id="printid" onclick="printbill()">Print </button>
     
 </div>
+
+
 
 <script>
 

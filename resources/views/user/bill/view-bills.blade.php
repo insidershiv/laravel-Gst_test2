@@ -66,9 +66,19 @@ $('#get_bills').click(function() {
          data = response ;
          count = 1;
          console.log(data);
+         var blank_list = '';
+
+if(data.length == 0 ) {
+    blank_list = '<div class="container mt-5 d-flex justify-content-center align-items-center" id="blank"> <p class="h4 text-danger"> No Bills. Select another Range</p>';
+$('#blank').remove();
+$('#attach').append(blank_list);
+return;
+}
 
 
-var myvar = '<div class="container d-flex align-items-center justify-content-center mt-5">'+
+
+
+var myvar = '<div class="container d-flex align-items-center justify-content-center mt-5" id="list">'+
 
 '<div class="table-responsive card" id="first-table">'+
 '    <table class="table mb-0">'+
@@ -134,7 +144,7 @@ for(i =0 ; i<data.length; i++) {
 
 var inc = myvar + items + '  </tbody>  </table> </div>';
 
-
+    $('#list').remove();
         $('#attach').append(inc);
 
 

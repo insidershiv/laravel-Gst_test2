@@ -47,7 +47,8 @@ class AdminController extends Controller
             'mobile' => 'required|digits:10',
             'address' => 'required',
             'city' => 'required',
-            'country'=> 'required'
+            'country'=> 'required',
+            'gstn'=>'required|unique:customers,gstn|digits:15'
         ]);
 
         return $validate;

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Billdetail;
+use App\Billitem;
 use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Inventory;
@@ -35,6 +37,12 @@ class UserController extends Controller
       $sales_amount = 0;
       $tax = 0 ;
       $total_amount = 0 ;
+      $todays_sale = 0 ;
+      $todays_amount =   Billdetail::where('vendor_id', $id)->whereDate('created_at', Carbon::today())->get('amount');
+      foreach($todays_amount as $todays) {
+          $todays_sale = $todays_sale + $todays->amount;
+      }
+
 
 
       foreach($sales_data as $sale_data) {
@@ -46,9 +54,26 @@ class UserController extends Controller
      $todays_invoices = count(Invoice::where('vendor_id', $id)->whereDate('created_at', Carbon::today() )->get());
      $total_invoices = count(Invoice::where('vendor_id', $id)->get());
 
+     $customer_id = $id ;
+     $data = Billdetail::where('vendor_id', $id)->orderBy('created_at', 'desc')->take(5)->get();
+     if(count( (array)$data) == 0) {
+         $no_data = 1;
+     }else {
+         $no_data = 0 ;
+
+     }
+     $count = count($data);
+
+     for($i=0; $i<$count; $i++ ) {
+        $createdAt = Carbon::parse($data[$i]["created_at"]);
+     
+      $date  =  $createdAt->format('M d Y');
+      $data[$i]["created"]=$date;
+    }
+
        
 
-        return view('user.main-dashboard', ['item_count'=> $item_count, 'sales_amount'=> $sales_amount, 'total_tax'=>$tax, 'total_amount'=>$total_amount, 'todays_invoices'=>$todays_invoices, 'total_invoices'=>$total_invoices]);
+        return view('user.main-dashboard', ['item_count'=> $item_count, 'sales_amount'=> $sales_amount, 'total_tax'=>$tax, 'total_amount'=>$total_amount, 'todays_invoices'=>$todays_invoices, 'total_invoices'=>$total_invoices, 'no_data'=>$no_data, 'data'=>$data, 'todays_sale'=>$todays_sale]);
     }
 
     public function show_form()
@@ -211,12 +236,14 @@ public function validate_customer($request) {
         'address' => 'required',
         'city' => 'required',
         'country'=> 'required',
-        'email'=>'required|unique:customers,email'
+        'email'=>'required|unique:customers,email',
+        'gstn'=>'required|unique:customers,gstn|digits:15'
 
     ],
     [
         'mobile.required'=>'Contact Number is Required',
         'mobile.digits' =>'Contact number must be of 10 digits'
+        
     ]
 
     );

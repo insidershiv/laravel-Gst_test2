@@ -122,8 +122,9 @@ Route::group(['middleware' => 'auth', 'middleware' => 'isuser', 'middleware' => 
   Route::post('/user/delete/service/{id}', 'InventoryController@delete_service');
   Route::get('/user/viewbills', 'BillController@viewall_bills');
   Route::get('/user/view/lastbill/{id}', 'BillController@view_lastbill');
-  Route::get('/user/viewbill/{id}', 'BillController@view_bill');
+  Route::get('/user/viewbill/{id}/{customer_id}', 'BillController@view_bill');
   Route::post('/user/getbills/date', 'BillController@viewbill_date');
+  Route::post('/user/get/lastinvoice/{id}', 'BillController@getlast_invoice');
 
 
   //*********  Billing Routes Starts Here */
@@ -138,6 +139,7 @@ Route::group(['middleware' => 'auth', 'middleware' => 'isuser', 'middleware' => 
   Route::post('/user/update/invoice', 'BillController@update_invoice');
   Route::post('/user/saveto/billitems/{id}', 'BillController@addto_billitems');
   Route::post('/user/saveto/billdetails/{id}', 'BillController@addto_billdetails');
+  Route::get('/user/view/todaysinvoice', 'BillController@gettodays_invoice');
 });
 
 

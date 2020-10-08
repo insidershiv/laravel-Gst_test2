@@ -13,27 +13,36 @@
     {{session()->forget('selected_customer')}}
 @endif
 
-  
+
+<script>
+    var q = @json($customers);
+
+    var customers;
+    
+    if(Array.isArray(q) == true){
+        customers = q;
+    } 
+    else{
+        customers = Object.values(q);
+    }
 
 
-    <script>
-        var customers = {!! $customers !!};
-
-        len = Object.getOwnPropertyNames(customers).length;
-      
+        if(customers.length != 0) {
+            
+        
+        //len = Object.getOwnPropertyNames(customers).length;
+        len = customers.length;
         var source = customers;
         var data = [];
        
-
-        for (var i = 0; i < len; i++) {
+        for (let i = 0; i < len; i++) {
             data[i] = (customers[i]["name"]).toUpperCase() + ' ( ' + (customers[i]["company_name"]).toUpperCase() + ' )';
-
         }
 
 
 
         source = data;
-      
+        }
 
         // $("#tags").autocomplete({
         //     source: availableTags
@@ -89,20 +98,20 @@
                    $('#customer-data').empty();
                      myvar = '<div class="row" id="customer-content">' +
                         '' +
-                        '    <div class="col-md-1 col-4 text-primary">Customer: </div>' +
-                        '<div class="offset-md-1 col-md-3 col-6 text-secondary text-capitalize">' +  customer["name"] + '</div>' +
+                        '    <div class="col-md-2 col-4 text-primary">Customer: </div>' +
+                        '<div class="ml-1 col-md-3 col-6 text-secondary text-capitalize">' +  customer["name"] + '</div>' +
                         '' +
-                        '<div class="offset-md-1 col-md-1 text-primary col-4">Email: </div>' +
+                        '<div class="offset-md-1 col-md-2 text-primary col-4">Email: </div>' +
                         '<div class="col-md-3 text-capitalize text-secondary col-6">'+ customer["email"]  +'</div>' +
                         '</div>' +
                         '' +
                         '<div class="row">' +
                         '' +
-                        '    <div class="col-md-1 text-primary col-4">Company: </div>' +
-                        '<div class="offset-md-1 col-md-3 text-secondary text-capitalize col-6">' + customer["company_name"] + '</div>' +
+                        '    <div class="col-md-2 text-primary col-4">Company: </div>' +
+                        '<div class="ml-1 col-md-3 text-secondary text-capitalize col-6">' + customer["company_name"] + '</div>' +
                         '' +
-                        '<div class="offset-md-1 col-md-1 text-primary col-4">Address: </div>' +
-                        '<div class="col-md-4 text-capitalize text-secondary col-6">'+ customer['address'] + '</div>' +
+                        '<div class="offset-md-1 col-md-2 text-primary col-4">Address: </div>' +
+                        '<div class="col-md-3 text-capitalize text-secondary col-6">'+ customer['address'] + '</div>' +
                         '</div>' +
                         '' +
                         '<div class="row">' +
@@ -110,16 +119,16 @@
                         '    <div class="col-md-1 text-primary col-4">State: </div>' +
                         '<div class="offset-md-1 col-md-3 text-secondary text-capitalize col-6">' + customer["state"]    +'</div>' +
                         '' +
-                        '<div class="offset-md-1 col-md-1 text-primary col-4">City: </div>' +
+                        '<div class="offset-md-1 col-md-2 text-primary col-4">City: </div>' +
                         '<div class="col-md-4 text-capitalize text-secondary col-6">'+ customer["city"]  + '</div>' +
                         '</div>'+
                         '' +
                         '<div class="row">' +
                         '' +
-                        '    <div class="col-md-1 text-primary col-4">Pincode: </div>' +
-                        '<div class="offset-md-1 col-md-3 text-secondary text-capitalize col-6">' + customer["pincode"]    +'</div>' +
+                        '    <div class="col-md-2 text-primary col-4">Pincode: </div>' +
+                        '<div class=" col-md-3 text-secondary text-capitalize col-6">' + customer["pincode"]    +'</div>' +
                         '' +
-                        '<div class="offset-md-1 col-md-1 text-primary col-4">Country: </div>' +
+                        '<div class="offset-md-1 col-md-2 text-primary col-4">Country: </div>' +
                         '<div class="col-md-4 text-capitalize text-secondary col-6">'+ customer["country"]  + '</div>' +
                         '</div>';
 
@@ -164,10 +173,13 @@
           
         }
 
-    </script>
+
+</script>
 
 
-    {{--
+    
+
+{{--     
     <div class="ui-widget">
         <label for="tags">Tags: </label>
         <input id="tags">

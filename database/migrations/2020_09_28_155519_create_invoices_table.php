@@ -16,14 +16,15 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('subtotal');
-            $table->integer('tax');
-            $table->integer('total_amount');
+            $table->float('subtotal');
+            $table->float('tax');
+            $table->float('total_amount');
             $table->bigInteger('vendor_id')->unsigned();
             $table->bigInteger('customer_id')->unsigned();
             $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->string('invoice_id')->unique();
+            $table->string('invoice_id');
+            $table->unique(['customer_id', 'invoice_id']);
            
         });
     }

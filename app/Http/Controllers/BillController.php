@@ -26,8 +26,21 @@ class BillController extends Controller
         $id = Auth::user()->id;
         $customers = Customer::where('vendor_id', $id)->get(['name','company_name'])->sortBy('name');
         
-        $companies = Customer::where('vendor_id', $id)->get('company_name')->sortBy('name');
-        return view('user.bill.select-customer', compact('customers', 'companies'));
+        //$customers = $customers->toArray();
+        // $customers = array(
+        //     0 => array(
+        //         'cat' => 'Wood'
+        //     ),
+        //     1 => array(
+        //         'cat' => 'Metal'
+        //     ),
+        // );
+
+
+        
+        //$companies = Customer::where('vendor_id', $id)->get('company_name')->sortBy('name');
+        
+        return view('user.bill.select-customer', ["customers"=>$customers]);
     }
 
     public function selected_customer_details(Request $request) {
@@ -137,48 +150,66 @@ class BillController extends Controller
         return view('user.bill.view-bills');
     }
 
-    public function view_lastbill($id) {
-       $last_invoice =  Lastinvoice::where('customer_id', $id)->get('last_invoice');
+    public function view_lastbill($customer_id) {
+        $vendor_id = Auth::user()->id;
+       $last_invoice =  Lastinvoice::where('customer_id', $customer_id)->get('last_invoice');
        if(count($last_invoice) == 0 ) {
            return view('user.bill.view-savedbill', ['no_items'=>1]);
        }
        $last_invoice = $last_invoice[0]["last_invoice"];
-       $bill_details = Billitem::where('invoice_id', $last_invoice)->get();
+       $bill_details = Billitem::where(['invoice_id'=>$last_invoice, 'vendor_id'=>$vendor_id, 'customer_id'=>$customer_id])->get();
        $bill_details = $bill_details;
-       $customer = Customer::where('id', $id)->get();
+       $customer = Customer::where('id', $customer_id)->get();
        $customer = $customer[0];
-
-       $final_amounts = Invoice::where('invoice_id', $last_invoice)->get(['subtotal', 'tax', 'total_amount', 'amount_words']);
+       $no_items = 0 ;
+       $final_amounts = Invoice::where(['invoice_id'=>$last_invoice, 'vendor_id'=>$vendor_id])->get(['subtotal', 'tax', 'total_amount', 'amount_words']);
+       if(count($final_amounts) ==0) {
+       
+        $no_items = 1 ;
+       }else {
         $final_amounts = $final_amounts[0];
+       }
+      
 
        
-     return view('user.bill.view-savedbill', ["bill_details"=>$bill_details, "invoice_id"=>$last_invoice, "customer"=>$customer, 'final_amounts'=>$final_amounts , 'no_items'=>0]);
+     return view('user.bill.view-savedbill', ["bill_details"=>$bill_details, "invoice_id"=>$last_invoice, "customer"=>$customer, 'final_amounts'=>$final_amounts , 'no_items'=>$no_items]);
    
     }
 
 
-    public function view_bill(Request $request, $id) {
+    public function view_bill(Request $request, $id, $cus_id) {
 
         $vendor_id = Auth::user()->id;
-        $bill_details = Billitem::where(['invoice_id'=>$id, 'vendor_id'=>$vendor_id])->get();
-       
-        
-        if(count($bill_details) == 0 ){
+        $temp = Billdetail::where('invoice_id',$id)->get('customer_id');
+        if(count($temp) == 0 ){
             $no_items = 1;
             return view('user.bill.view-bill', ['no_items'=>$no_items]);
         }else {
             $no_items = 0 ;
         }
-        $temp = Billdetail::where('invoice_id',$id)->get('customer_id');
-        $customer_id = $temp[0];
-        $customer_id = $customer_id["customer_id"];
+
+        if(session()->has('selected_customer')) {
+            $cust_id = session()->get('selected_customer');
+            $cust_id = $cust_id["id"];
+        }
+
+        // $customer_id = $temp[0];
+        // $customer_id = $customer_id["customer_id"];
+
+        $bill_details = Billitem::where(['invoice_id'=>$id, 'vendor_id'=>$vendor_id, "customer_id"=>$cus_id])->get();
+        
+        
        
-         $customer = Customer::where('id', $customer_id)->get();
+        // $temp = Billdetail::where('invoice_id',$id)->get('customer_id');
+        // $customer_id = $temp[0];
+        // $customer_id = $customer_id["customer_id"];
+       
+         $customer = Customer::where('id', $cus_id)->get();
          $customer = $customer[0];
          //return view('user.bill.view-bill', ['customer'=>$customer]);
 
  
-         $final_amounts = Invoice::where(['invoice_id'=> $id, 'vendor_id'=>$vendor_id])->get(['subtotal', 'tax', 'total_amount', 'amount_words']);
+         $final_amounts = Invoice::where(['invoice_id'=> $id, 'vendor_id'=>$vendor_id, 'customer_id'=>$cus_id])->get(['subtotal', 'tax', 'total_amount', 'amount_words']);
           $final_amounts = $final_amounts[0];
 
 
@@ -271,7 +302,7 @@ class BillController extends Controller
             $no_data = 0 ;
         }
 
-        for($i=0; $i<=count((array)$data); $i++ ) {
+        for($i=0; $i<count($data); $i++ ) {
             $createdAt = Carbon::parse($data[$i]["created_at"]);
          
           $date  =  $createdAt->format('M d Y');
@@ -288,6 +319,32 @@ class BillController extends Controller
 
 
 
+
+    }
+
+    public function getlast_invoice($id) {
+
+        $invoice_id = Lastinvoice::where('customer_id', $id)->get('last_invoice');
+        $invoice_id = $invoice_id[0];
+        $temp =  $invoice_id["last_invoice"];
+        $invoice_id = $temp;
+        return $invoice_id;
+
+
+
+
+    }
+
+    public function gettodays_invoice() {
+        $vendor_id = Auth::user()->id;
+     $data =    Billdetail::where('vendor_id', $vendor_id)->whereDate('created_at', Carbon::today())->get();
+        if(count($data) == 0) {
+            $no_data = 1;
+        }else {
+            $no_data = 0 ;
+        }
+
+        return view('user.bill.todays-bill', ['no_data'=>$no_data, 'data'=>$data]);
 
     }
 
