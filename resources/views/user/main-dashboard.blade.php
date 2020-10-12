@@ -273,8 +273,6 @@
 @endif
 
 
-{{$todays_sale}}
-
 
 
 
